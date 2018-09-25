@@ -1,10 +1,10 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { ScatterPlot } from "./lib/plotting";
+import { ScatterPlot } from "../src/lib/plotting";
 import * as Plotly from 'plotly.js';
 import { ScatterData} from 'plotly.js';
 
-import { IMinimalData } from "./lib/base_classes";
+import { IMinimalData } from "../src/lib/base_classes";
 
 
 
@@ -15,7 +15,7 @@ const TestContainer2 = document.querySelector(".test-container2");
 let plot = new ScatterPlot({container:PlotContainer})
 plot.show()
 
-import ContainedButtons from './test-material-ui';
+import ContainedButtons from '../src/test-material-ui';
 class buttonClass{
   container: Element;
   

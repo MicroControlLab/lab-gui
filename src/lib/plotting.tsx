@@ -27,7 +27,7 @@ import * as ReactDOM from "react-dom";
 import Plot from 'react-plotly.js';
 import Button from '@material-ui/core/Button';
 
-export class ScatterPlot extends React.Component {
+export class ScatterPlot extends React.Component <any, any>{
   container: Element;
   x_data: number[] = [1, 2, 3];
   y_data: number[] = [2, 6, 3];
@@ -39,32 +39,10 @@ export class ScatterPlot extends React.Component {
 		}
 		else{
 			throw "container is not a valid html element";
-			
 		}
-  }
 
-  show(){
-  	{ReactDOM.render(< ScatterPlot />, this.container ); }
-  }
-
-  add_data(){
-  	for (var i = 10; i >= 0; i--) {
-	  	this.x_data = [...this.x_data, Math.max(...this.x_data)+1]
-	  	this.y_data = [...this.y_data, Math.random()*20]
-  	}
-  	console.log(this.x_data)
-  }
-
-  render() {
-    return (
-    	< React.Fragment >
-	    	<Button variant="contained" color="primary" onClick={() => {this.add_data()}} >
-	        Add Data
-	      </Button>
-
-
-		      <Plot
-		        data={[
+		this.state = { 
+			data: [
 		          { 
 		          	name: "scatter",
 		            x: this.x_data,
@@ -77,23 +55,68 @@ export class ScatterPlot extends React.Component {
 		          	type: 'bar', 
 		          	x: this.x_data, 
 		          	y: this.y_data, 
-		          	name: "bars"},
-		        ]}
-		        layout={ {width: 500, height: 400, title: 'A Fancyer Plot'} }
+		          	name: "bars"}
+		          	], 
+		  layout: {autosize: true , title: 'A Fancyer Plot'}, 
+		  frames: [], 
+		  config: {
+		  	modeBarButtonsToRemove: ['edit'],
+		  	displayModeBar: true,
+		  	scrollZoom: true,
+		  	displaylogo: false
+		  } 
+		};
+  }
+
+  show(){
+  	{ReactDOM.render(< ScatterPlot />, this.container ); }
+  }
+
+  add_data(){
+  	let x_data = this.state.data[0].x;
+  	let y_data = this.state.data[1].y;
+  	let start = Date.now();
+  	for (let i = 1000; i > 0; i--) {
+	  	x_data = [...x_data, Math.max(...x_data)+1]
+	  	y_data = [...y_data, Math.random()*20]
+  	}
+		const data = [...this.state.data];
+  	data[0].y = y_data;
+  	data[0].x = x_data;
+  	data[1].x = x_data;
+  	data[1].y = y_data;
+  	console.log(data[0]);
+  	console.log(data[1]);
+  	this.setState({ data: data });
+	 //  const   newState = ()=> { 
+	 //    items: [...this.state.items, this.state.field];
+	 //  }
+	 console.log(Date.now()-start)
+  	console.log(this.state.data[0]);
+  	console.log(this.state.data[1]);
+  }
+
+  render() {
+    return (
+    	< React.Fragment >
+	    	<div style={{width: "100%" }}>
+		    	<Button variant="contained" color="primary" onClick={() => {this.add_data()}} >
+		        Add Data
+		      </Button>
+	      </div>
+
+
+		      <Plot
+            data={this.state.data}
+            layout={this.state.layout}
+            frames={this.state.frames}
+            config={this.state.config}
+            onInitialized={(figure) => this.setState(figure)}
+            onUpdate={(figure) => this.setState(figure)}
+            useResizeHandler={ true }
+            className="responsive-plot"
 		      />
       	</ React.Fragment >
     );
   }
 }
-
-// export ScatterPlot;
-
-// let test_instance = {
-// 	container: document.querySelector(".plot-container"), 
-// 	title: "title",
-// 	x_axis_label: "x",
-// 	y_axis_label: "y"
-// }
-
-// let tests = new ScatterPlot(test_instance)
-// tests.show()

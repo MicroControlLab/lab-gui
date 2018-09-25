@@ -9,11 +9,11 @@
     "preserveConstEnums": true,
     "removeComments": true,
     "sourceMap": true,
-    "target": "es5",
+    "target": "es6",
     /* Module Resolution Options */
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "baseUrl": "./src",
+    "baseUrl": "./src/",
     "paths": {
         "plotly.js": [
             "./node_modules/plotly.js/lib/index.js",
