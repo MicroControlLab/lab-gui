@@ -33,6 +33,8 @@
     "rc-slider": "^8.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-plotly.js": "^2.2.0"
+    "react-plotly.js": "^2.2.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0"
   }
 }
