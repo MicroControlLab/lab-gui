@@ -1,7 +1,7 @@
 // import * as Plotly from 'plotly.js';
 
 import { IMinimalData } from "../base_classes";
-import {PlotData} from "plotly.js";
+import { PlotData } from "plotly.js";
 
 
 
@@ -107,9 +107,11 @@ function manipulate_data(current_state: plotState|undefined, action: reduxAction
 
 
 
-import { createStore, Store } from 'redux';
+import { createStore, Store , applyMiddleware} from 'redux';
+import { createLogger } from "redux-logger";
 
-import React from 'react';
+
+import * as React from 'react';
 import * as ReactDOM from "react-dom";
 import Plot from 'react-plotly.js';
 import Button from '@material-ui/core/Button';
@@ -129,6 +131,8 @@ export class ScatterPlot extends React.Component <any, any>{
 			throw "container is not a valid html element";
 		}
 		this.store = min_req.store;
+		console.log("store: ", this.store)
+		console.log("plot data: ", this.store.getState())
 
 		this.state = {
 		  layout: {autosize: true , title: 'A Fancyer Plot'}, 
@@ -165,31 +169,39 @@ export class ScatterPlot extends React.Component <any, any>{
   render() {
     return (
     	< React.Fragment >
-				{console.log("store: ", this.store)}
-				{console.log("plot data: ", this.store.getState().plot_data)}
 	    	<div style={{width: "100%" }}>
-		    	<Button variant="contained" color="primary" onClick={() => {this.store.dispatch({type: "ADD"})}} >
-		        Add Data
+		    	<Button variant="contained" color="primary" onClick={() => { {console.log("store: ", store)} } } >
+		        Test
 		      </Button>
-	      </div>
-
-
-		      <Plot
-            data={this.store.getState().plot_data}
-            layout={this.state.layout}
-            frames={this.state.frames}
-            config={this.state.config}
-            onInitialized={(figure) => this.setState(figure)}
-            onUpdate={(figure) => this.setState(figure)}
-            useResizeHandler={ true }
-            className="responsive-plot"
-		      />
+	      	</div>
       	</ React.Fragment >
     );
   }
 }
 
 const PlotContainer = document.querySelector(".plot-container");
-const store: plotStateExtended = createStore(manipulate_data, inital_state);
+let loggerMiddleware = createLogger()
+const store = createStore(manipulate_data, inital_state, applyMiddleware(loggerMiddleware));
 const plot = new ScatterPlot({container:PlotContainer, store: store})
 plot.show()
+
+/*
+				{console.log("plot data: ", this.store.getState().plot_data)}
+
+		    	// <Button variant="contained" color="primary" onClick={() => {this.store.dispatch({type: "ADD"})}} >
+		      //   Add Data
+		      // </Button>
+
+
+		      // <Plot
+        //     data={this.store.getState().plot_data}
+        //     layout={this.state.layout}
+        //     frames={this.state.frames}
+        //     config={this.state.config}
+        //     onInitialized={(figure) => this.setState(figure)}
+        //     onUpdate={(figure) => this.setState(figure)}
+        //     useResizeHandler={ true }
+        //     className="responsive-plot"
+		      // />
+
+*/
