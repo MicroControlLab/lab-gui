@@ -113,10 +113,10 @@ import { createLogger } from "redux-logger";
 
 import * as React from 'react';
 import * as ReactDOM from "react-dom";
-import Plot from 'react-plotly.js';
+import { Plot } from 'react-plotly.js';
 import Button from '@material-ui/core/Button';
 
-export class ScatterPlot extends React.Component <any, any>{
+export class Ploter extends React.Component <any, any>{
   container: Element;
   store: Store;
   x_data: number[] = [1, 2, 3];
@@ -147,23 +147,7 @@ export class ScatterPlot extends React.Component <any, any>{
   }
 
   show(){
-  	{ReactDOM.render(< ScatterPlot />, this.container ); }
-  }
-
-  add_data(){
-  	let x_data = this.state.data[0].x;
-  	let y_data = this.state.data[1].y;
-  	let start = Date.now();
-  	for (let i = 10; i > 0; i--) {
-	  	x_data = [...x_data, Math.max(...x_data)+1]
-	  	y_data = [...y_data, Math.random()*20]
-  	}
-		const data = [...this.state.data];
-		data[0].y = y_data;
-		data[0].x = x_data;
-		data[1].x = x_data;
-		data[1].y = y_data;
-		this.setState({ data: data });
+  	{ReactDOM.render(< Ploter />, this.container ); }
   }
 
   render() {
@@ -179,11 +163,11 @@ export class ScatterPlot extends React.Component <any, any>{
   }
 }
 
-const PlotContainer = document.querySelector(".plot-container");
-let loggerMiddleware = createLogger()
-const store = createStore(manipulate_data, inital_state, applyMiddleware(loggerMiddleware));
-const plot = new ScatterPlot({container:PlotContainer, store: store})
-plot.show()
+// const PlotContainer = document.querySelector(".plot-container");
+// let loggerMiddleware = createLogger()
+// const store = createStore(manipulate_data, inital_state, applyMiddleware(loggerMiddleware));
+// const plot = new ScatterPlot({container:PlotContainer, store: store})
+// plot.show()
 
 /*
 				{console.log("plot data: ", this.store.getState().plot_data)}
