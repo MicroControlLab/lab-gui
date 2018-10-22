@@ -12,8 +12,8 @@ const PlotContainer = document.querySelector(".plot-container");
 const TestContainer = document.querySelector(".test-container");
 const TestContainer2 = document.querySelector(".test-container2");
 
-let plot = new ScatterPlot({container:PlotContainer})
-plot.show()
+// let plot = new ScatterPlot({container:PlotContainer})
+// plot.show()
 
 import ContainedButtons from './test-material-ui';
 class buttonClass{

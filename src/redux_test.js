@@ -1,0 +1,11 @@
+"use strict";
+exports.__esModule = true;
+var button_1 = require("./lib/buttons/button");
+var TestContainer = document.querySelector(".test-container");
+var TestContainer2 = document.querySelector(".test-container2");
+// ReactDOM.render(< StartBtn />, TestContainer );
+// ReactDOM.render(< StopBtn />, TestContainer2 );
+var startBtn = new button_1.StartBtn({ container: TestContainer }, {});
+startBtn.show;
+var stopBtn = new button_1.StopBtn({ container: TestContainer2 }, {});
+stopBtn.show;
