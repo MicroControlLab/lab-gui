@@ -1,6 +1,6 @@
 // import * as Plotly from 'plotly.js';
 
-import { IMinimalData } from "./base_classes";
+import { MinimalPropRequirement } from "./base_classes";
 
 
 
@@ -12,7 +12,7 @@ interface IPlotDetails{
 }
 
 interface testInterface{
-	minimal: IMinimalData;
+	minimal: MinimalPropRequirement;
 	plot_labels: IPlotLabels;
 }
 interface IPlotLabels{
@@ -32,7 +32,7 @@ export class ScatterPlot extends React.Component <any, any>{
   x_data: number[] = [1, 2, 3];
   y_data: number[] = [2, 6, 3];
   
-  constructor(min_req: IMinimalData) {
+  constructor(min_req: MinimalPropRequirement) {
   	super(min_req);
   	if(min_req.container !== null){
     	this.container = min_req.container;
