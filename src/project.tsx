@@ -4,7 +4,7 @@ import { ScatterPlot } from "./lib/plotting";
 import * as Plotly from 'plotly.js';
 import { ScatterData} from 'plotly.js';
 
-import { IMinimalData } from "./lib/base_classes";
+import { MinimalPropRequirement } from "./lib/base_classes";
 
 
 
@@ -19,7 +19,7 @@ import ContainedButtons from './test-material-ui';
 class buttonClass{
   container: Element;
   
-  constructor(min_req: IMinimalData) {
+  constructor(min_req: MinimalPropRequirement) {
   	if(min_req.container !== null){
     	this.container = min_req.container;
 	}
@@ -34,5 +34,5 @@ class buttonClass{
   }
 }
 
-let reactClass = new buttonClass({container:TestContainer2})
+let reactClass = new buttonClass({container:TestContainer2, name: "foo"})
 reactClass.show()

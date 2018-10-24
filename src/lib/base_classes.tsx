@@ -1,6 +1,6 @@
-import * as React from 'react';
-import * as ReactDOM from "react-dom";
-import { Reducer, AnyAction } from 'redux'
+import * as React from 'react'
+import * as ReactDOM from "react-dom"
+import { Reducer, AnyAction, Store } from 'redux'
 
 
 
@@ -10,11 +10,26 @@ export interface MinimalPropRequirement{
 
 }
 
+export interface BaseUiState{
+	uiActive: boolean
+}
+
+const initalBaseUiState:BaseUiState = {
+	uiActive: false
+}
+
 export class ReduxComponentBaseClass extends React.Component <MinimalPropRequirement, any> {
 	name: string = "pure ReduxComponentBaseClass"
 	container: Element|null= null
 	reducers: {[reducerName:string]: Reducer} = {}
-	defaultReducerNames: string[] = ["uiActive"]
+	defaultReducerNames: string[] = ["UiBaseState"]
+	invertedActiveState: boolean = false
+	deactivates_ui: boolean = false
+	uiActive: boolean = false
+	state = {
+		elementDisabled: true
+	}
+	store: Store
 
 	
 	constructor(props: MinimalPropRequirement){
@@ -25,10 +40,26 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 		if(props.name !== undefined){
     	this.name = props.name
 		}
+		this.reducers["UiBaseState"] = this.uiActiveReducer
 	}
 
-	show():void{
-		ReactDOM.render(this.render(), this.container);
+	componentDidMount(){
+		this.setState({elementDisabled: (this.uiActive === this.invertedActiveState)})
+	}
+
+	uiActiveReducer(state: BaseUiState=initalBaseUiState, action: AnyAction):BaseUiState{
+		switch(action.type){
+    	case "ACTIVATE_UI":
+    		return {...state, uiActive: true}
+    	case "DEACTIVATE_UI":
+    		return {...state, uiActive: false}
+    	default:
+    		return state
+		}
+	}
+
+	setStore(store: Store){
+		this.store = store
 	}
 
 	add_reducer(reducerName: string, reducer: Reducer, 
@@ -51,16 +82,19 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 		this.reducers[reducerName] = reducer
 	}
 
-
-
 	get_reducers():{[reducerName:string]: Reducer}{
 		return this.reducers
 	}
 
-	render(){
-		return <h1>The element `{this.name}` of class ReduxComponentBaseClass is is an abstract class,
-		 which is not supposed to be used on its own but subclassed</h1>
+	show():void{
+		ReactDOM.render( <h1>The element `{this.name}` of class ReduxComponentBaseClass is an abstract class,
+		 which is not supposed to be used on its own but subclassed</h1>, 
+			this.container);
 	}
 
+	render(){
+		return <h1>The element `{this.name}` of class ReduxComponentBaseClass is an abstract class,
+		 which is not supposed to be used on its own but subclassed</h1>
+	}
 
 }

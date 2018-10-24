@@ -1,11 +1,10 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-
-const styles = theme => ({
+const styles = (theme: Theme) => ({
   button: {
     margin: theme.spacing.unit,
   },

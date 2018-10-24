@@ -1,6 +1,8 @@
 import { ReduxComponentBaseClass } from "./base_classes";
-import { Reducer, AnyAction } from 'redux'
-
+import { Reducer, AnyAction, Store } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { logger } from 'redux-logger';
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 
 export class UiGenerator {
@@ -12,9 +14,8 @@ export class UiGenerator {
 		this.element_list = [...this.element_list, element]
 	}
 
-	combineReducers(){
-		let element
-		for (element of this.element_list){
+	get_reducers(): void{
+		for (let element of this.element_list){
 			const reducers = element.get_reducers()
 			for(let reducerName in reducers){
 				if(reducerName in this.reducers && !(element.defaultReducerNames.indexOf(reducerName) > -1)){
@@ -28,10 +29,33 @@ export class UiGenerator {
 		}
 	}
 
+	configureStore(preloadedState={}):Store {
+		const middlewares = [logger];
+		const middlewareEnhancer =applyMiddleware(...middlewares)
+		const composeEnhancers = composeWithDevTools({})
+	  	const composedEnhancers = composeEnhancers(middlewareEnhancer);
+		const store = createStore(
+	    combineReducers(this.reducers),
+	    preloadedState,
+	    composedEnhancers
+	    );
+
+		// allows hotswap for reducers
+		if (process.env.NODE_ENV !== 'production' && module.hot) {
+		  	module.hot.accept('./src', () =>{
+			    store.replaceReducer(combineReducers(this.reducers))
+				}
+		  )
+		}
+		​
+	  return store
+	}
+
 	show(){
-		this.combineReducers()
-		let element
-		for (element of this.element_list){
+		this.get_reducers()
+		let store = this.configureStore()
+		for (let element of this.element_list){
+			element.setStore(store)
 			element.show()
 		}
 	}

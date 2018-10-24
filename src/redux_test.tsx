@@ -16,9 +16,9 @@ const testReducer: Reducer<any, AnyAction> =
 (state: any = initialState, action: AnyAction) =>{
 	let users;
   switch (action.type) {
-  	case "deactivate_ui":
+  	case "DEACTIVATE_UI":
   		return {...state, uiActive: false};
-  	case "activate_ui":
+  	case "ACTIVATE_UI":
   		return {...state, uiActive: true};
     default:
       return {...state, uiActive: false};;
@@ -35,9 +35,9 @@ const Ui = new UiGenerator()
 const start = new StartBtn({container: TestContainer, name: "start"})
 const stop = new StopBtn({container: TestContainer2, name: "stop"})
 
-start.add_reducer("uiActive1", testReducer)
+// start.add_reducer("uiActive1", testReducer)
 // start.add_reducer("uiActive", testReducer)
-stop.add_reducer("uiActive2", testReducer)
+// stop.add_reducer("uiActive2", testReducer)
 
 Ui.add_element(start)
 Ui.add_element(stop)
