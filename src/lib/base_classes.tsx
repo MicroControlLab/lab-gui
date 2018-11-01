@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from "react-dom"
-import { Reducer, AnyAction, Store } from 'redux'
+import { Reducer, AnyAction, Store, createStore, Dispatch } from 'redux'
+import { connect, Provider } from "react-redux"
 
 
 
@@ -14,15 +15,20 @@ export interface BaseUiState{
 	uiActive: boolean
 }
 
+export interface GlobalBaseUiState{
+	UiActiveState: BaseUiState
+}
+
 const initalBaseUiState:BaseUiState = {
 	uiActive: false
 }
 
 export class ReduxComponentBaseClass extends React.Component <MinimalPropRequirement, any> {
+	component_class: React.ComponentClass<MinimalPropRequirement, any> = ReduxComponentBaseClass
 	name: string = "pure ReduxComponentBaseClass"
 	container: Element|null= null
 	reducers: {[reducerName:string]: Reducer} = {}
-	defaultReducerNames: string[] = ["UiBaseState"]
+	defaultReducerNames: string[] = ["UiActiveState"]
 	invertedActiveState: boolean = false
 	deactivates_ui: boolean = false
 	uiActive: boolean = false
@@ -40,11 +46,32 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 		if(props.name !== undefined){
     	this.name = props.name
 		}
-		this.reducers["UiBaseState"] = this.uiActiveReducer
+		this.reducers["UiActiveState"] = this.uiActiveReducer
+		this.store = createStore(this.uiActiveReducer)
+		// console.log(this.uiActiveAction)
 	}
 
 	componentDidMount(){
 		this.setState({elementDisabled: (this.uiActive === this.invertedActiveState)})
+	}
+
+	show():void{
+		// ReactDOM.render( <h1>The element `{this.name}` of class ReduxComponentBaseClass is an abstract class,
+		//  which is not supposed to be used on its own but subclassed</h1>, 
+		// 	this.container);
+		// console.log(typeof(this.component_class))
+		const Container = this.get_container()
+		ReactDOM.render(
+			<Provider store={this.store}>
+				< Container {...this.props} /> 
+			</ Provider>,
+		this.container)
+
+	}
+
+	render(){
+		return <h1>The element `{this.name}` of class ReduxComponentBaseClass is an abstract class,
+		 which is not supposed to be used on its own but subclassed</h1>
 	}
 
 	uiActiveReducer(state: BaseUiState=initalBaseUiState, action: AnyAction):BaseUiState{
@@ -58,14 +85,21 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 		}
 	}
 
+	uiActiveAction(invertedActiveState: boolean):AnyAction{
+		if(invertedActiveState){
+			return {type: "ACTIVATE_UI"}
+		}
+		else{
+			return {type: "DEACTIVATE_UI"}			
+		}
+	}
+
 	setStore(store: Store){
 		this.store = store
 	}
 
 	add_reducer(reducerName: string, reducer: Reducer, 
 							allowDefaultReducerOverwrite: boolean=false):void{
-		// console.log(this.defaultReducerNames)
-		// console.log(reducerName in this.defaultReducerNames)
 		if(this.defaultReducerNames.indexOf(reducerName) > -1 && 
 				!allowDefaultReducerOverwrite){
 			console.warn(`The reducerName '${reducerName}', in the ` + 
@@ -86,15 +120,30 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 		return this.reducers
 	}
 
-	show():void{
-		ReactDOM.render( <h1>The element `{this.name}` of class ReduxComponentBaseClass is an abstract class,
-		 which is not supposed to be used on its own but subclassed</h1>, 
-			this.container);
+	get_mapStateToProps(state: GlobalBaseUiState){
+		return {uiActive: state.UiActiveState.uiActive}
 	}
 
-	render(){
-		return <h1>The element `{this.name}` of class ReduxComponentBaseClass is an abstract class,
-		 which is not supposed to be used on its own but subclassed</h1>
+	get_mapDispatchToProps(dispatch: Dispatch){
+		return {changeUiActiveState: (invertedActiveState: boolean) => {dispatch(outsideUiActiveAction(invertedActiveState))}}
+	}
+
+	get_container(){
+		const mapDispatchToProps = this.get_mapDispatchToProps
+		const Container = connect(
+			this.get_mapStateToProps,
+			mapDispatchToProps
+			)(this.component_class)
+		return Container
 	}
 
 }
+
+const outsideUiActiveAction = (invertedActiveState: boolean):AnyAction => {
+		if(invertedActiveState){
+			return {type: "ACTIVATE_UI"}
+		}
+		else{
+			return {type: "DEACTIVATE_UI"}			
+		}
+	}

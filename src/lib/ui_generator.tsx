@@ -55,6 +55,7 @@ export class UiGenerator {
 		this.get_reducers()
 		let store = this.configureStore()
 		for (let element of this.element_list){
+			console.log(element)
 			element.setStore(store)
 			element.show()
 		}

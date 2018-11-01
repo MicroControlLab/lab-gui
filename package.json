@@ -31,8 +31,9 @@
   "dependencies": {
     "@material-ui/core": "^3.0.2",
     "@material-ui/icons": "^3.0.1",
+    "npm": "^6.4.1",
     "package.json": "^2.0.1",
-    "plotly.js": "^1.41.3",
+    "plotly.js": "^1.42.1",
     "rc-slider": "^8.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",

@@ -24,14 +24,16 @@ export class ReduxButton extends ReduxComponentBaseClass{
 		text: "button text",
 		class_names: "button"
 	}
-	color: ButtonProps["color"] = "primary"
-	text: string = "button text"
+	component_class: React.ComponentClass<ButtonProps, any> = ReduxButton
+	color: ButtonProps["color"]
+	text: string
 	class_names: string|string[] = "button"
 	className: string = "button"
 	deactivates_ui: boolean = true
 
 	constructor(props: ButtonProps){
 		super(props)
+		console.log(props)
   	this.color = props.color	
 		if(typeof(props.class_names) !== "string" &&  props.class_names !== undefined){
 			this.className = props.class_names.join(" ")
@@ -39,31 +41,35 @@ export class ReduxButton extends ReduxComponentBaseClass{
 		else if(typeof(props.class_names) === "string"){
 			this.className = props.class_names
 		}
-
+		this.text = this.props.text
 	}
 
-	is_disabled(){
-		if((this.deactivates_ui && !this.uiActive)||(!this.deactivates_ui && this.uiActive)){
-			this.setState({elementDisabled: true})
+	is_disabled(uiActive: boolean){
+		if((this.deactivates_ui && !uiActive)||(!this.deactivates_ui && uiActive)){
+			// this.setState({elementDisabled: true})
+			return  true
 		}
 		else{
-			this.setState({elementDisabled: false})
+			return false
+			// this.setState({elementDisabled: false})
 		}
 	}
 
 	onClick(){
 		this.uiActive = !this.uiActive
-		this.is_disabled()
+		// this.is_disabled()
 	}
 
 	render(){
+		// console.log(this.props)
+		const {uiActive, changeUiActiveState} = this.props
 		return (
 			<Provider store={this.store}>
 	      <Button variant="contained" 
 	      				color={this.color} 
-	      				disabled={this.state.elementDisabled}
+	      				disabled={this.is_disabled(uiActive)}
 	      				className={this.className}
-	      				onClick={() => {this.is_disabled()}}>
+	      				onClick={() => {changeUiActiveState(this.invertedActiveState)}}>
 	        {this.text}
 	      </Button>
 	    </ Provider>
@@ -72,30 +78,20 @@ export class ReduxButton extends ReduxComponentBaseClass{
 }
 
 export class StartBtn extends ReduxButton{
+	component_class = StartBtn
 	constructor(props: ButtonProps){
 		super(props)
 		this.text = "Start" 
 	}
-
-	show():void{
-		ReactDOM.render(< StartBtn 
-			{...this}
-			/>, 
-			this.container);
-	}
 }
 
 export class StopBtn extends ReduxButton{
+	component_class = StopBtn
 	constructor(props: ButtonProps){
 		super(props)
-		this.text = "Stop"
+		// this.text = "Stop"
 		this.color = "secondary"
 		this.deactivates_ui=false
 		this.invertedActiveState = true
-	}
-
-	show():void{
-		ReactDOM.render(< StopBtn {...this}	/>, 
-			this.container);
 	}
 }

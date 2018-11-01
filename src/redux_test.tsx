@@ -29,16 +29,22 @@ const testReducer: Reducer<any, AnyAction> =
 
 const TestContainer = document.querySelector(".test-container");
 const TestContainer2 = document.querySelector(".test-container2");
+const TestContainer3 = document.querySelector(".test-container3");
+const TestContainer4 = document.querySelector(".test-container4");
 
 const Ui = new UiGenerator()
 
-const start = new StartBtn({container: TestContainer, name: "start"})
-const stop = new StopBtn({container: TestContainer2, name: "stop"})
+const start = new StartBtn({container: TestContainer, name: "start", text: "first start btn"})
+const start2 = new StartBtn({container: TestContainer2, name: "start2"})
+const start3 = new StartBtn({container: TestContainer3, name: "start3"})
+const stop = new StopBtn({container: TestContainer4, name: "stop"})
 
 // start.add_reducer("uiActive1", testReducer)
 // start.add_reducer("uiActive", testReducer)
 // stop.add_reducer("uiActive2", testReducer)
 
 Ui.add_element(start)
+Ui.add_element(start2)
+Ui.add_element(start3)
 Ui.add_element(stop)
 Ui.show()
