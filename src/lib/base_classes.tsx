@@ -35,7 +35,7 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 	uiActive: boolean = false
 	store: Store
 
-	
+
 	constructor(props: MinimalPropRequirement){
 		super(props)
 		if(props.container !== undefined){
@@ -52,7 +52,7 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 		const Container = this.get_container()
 		ReactDOM.render(
 			<Provider store={this.store}>
-				< Container {...this.props} {...this.state} /> 
+				< Container {...this.props} {...this.state} />
 			</ Provider>,
 		this.container)
 	}
@@ -78,7 +78,7 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 			return {type: "ACTIVATE_UI"}
 		}
 		else{
-			return {type: "DEACTIVATE_UI"}			
+			return {type: "DEACTIVATE_UI"}
 		}
 	}
 
@@ -86,19 +86,19 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 		this.store = store
 	}
 
-	add_reducer(reducerName: string, reducer: Reducer, 
+	add_reducer(reducerName: string, reducer: Reducer,
 							allowDefaultReducerOverwrite: boolean=false):void{
-		if(this.defaultReducerNames.indexOf(reducerName) > -1 && 
+		if(this.defaultReducerNames.indexOf(reducerName) > -1 &&
 				!allowDefaultReducerOverwrite){
-			console.warn(`The reducerName '${reducerName}', in the ` + 
-									 `element with name '${this.name}' is part of the `+ 
+			console.warn(`The reducerName '${reducerName}', in the ` +
+									 `element with name '${this.name}' is part of the `+
 									 `default reducers of that class. Changing it could lead to ` +
 									 `unexpected behaviour. If you are absoulutly sure this is what you ` +
 									 `want to do, you can use 'allowDefaultReducerOverwrite=true'`
 			)
 		}
 		else if(reducerName in this.reducers){
-			throw `The reducerName '${reducerName}' of the ` + 
+			throw `The reducerName '${reducerName}' of the ` +
 						`element with name '${this.name}', is allready in its reducers.`
 		}
 		this.reducers[reducerName] = reducer
@@ -113,7 +113,9 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 	}
 
 	get_mapDispatchToProps(dispatch: Dispatch){
-		return {changeUiActiveState: (invertedActiveState: boolean) => {dispatch(uiActiveAction(invertedActiveState))}}
+		return {changeUiActiveState: (invertedActiveState: boolean) =>
+			{dispatch(uiActiveAction(invertedActiveState))}
+		}
 	}
 
 	get_container(){
@@ -132,6 +134,6 @@ const uiActiveAction = (invertedActiveState: boolean):AnyAction => {
 			return {type: "ACTIVATE_UI"}
 		}
 		else{
-			return {type: "DEACTIVATE_UI"}			
+			return {type: "DEACTIVATE_UI"}
 		}
 	}

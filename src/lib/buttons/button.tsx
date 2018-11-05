@@ -8,8 +8,8 @@ import { Provider } from 'react-redux'
 import { MinimalPropRequirement, ReduxComponentBaseClass} from "../base_classes"
 
 
-// export interface ButtonProps extends MinimalPropRequirement, DefaultButtonProps{
-// }
+export interface newButtonProps extends MinimalPropRequirement, ButtonProps{
+}
 
 interface ButtonProps{
 	color?: "primary"|"secondary"
@@ -20,7 +20,7 @@ interface ButtonProps{
 }
 
 export class ReduxButton extends ReduxComponentBaseClass{
-	component_class: React.ComponentClass<MinimalPropRequirement, any> = ReduxButton
+	component_class: React.ComponentClass<newButtonProps, any> = ReduxButton
 	defaultState: ButtonProps = {
 		color: "primary",
 		text: "button text",
@@ -30,20 +30,18 @@ export class ReduxButton extends ReduxComponentBaseClass{
 	state: ButtonProps = {}
 	deactivates_ui: boolean = true
 
-	constructor(props: MinimalPropRequirement){
+	constructor(props: newButtonProps){
 		super(props)
 		this.set_init_state()
 	}
 
 	set_init_state():void{
-		console.log("set_init_state", this.defaultState)
 		let cleanedProps = this.props as ButtonProps
 		this.state = {...this.defaultState, ...cleanedProps}
 	}
 
 	changeSettings(updateState: ButtonProps){
-		this.state = {...this.defaultState, ...this.state, ...updateState}
-		console.log("changeSettings", this.state)
+		this.state = {...this.state, ...updateState}
 	}
 
 	is_disabled(uiActive: boolean){
@@ -78,7 +76,7 @@ export class ReduxButton extends ReduxComponentBaseClass{
 export class StartBtn extends ReduxButton{
 	component_class = StartBtn
 
-	constructor(props: MinimalPropRequirement){
+	constructor(props: newButtonProps){
 		super(props)
 		this.defaultState.text = "Start"
 	}
@@ -87,7 +85,7 @@ export class StartBtn extends ReduxButton{
 export class StopBtn extends ReduxButton{
 	component_class = StopBtn
 
-	constructor(props: MinimalPropRequirement){
+	constructor(props: newButtonProps){
 		super(props)
 		this.defaultState.text = "Stop"
 		this.defaultState.color = "secondary"
