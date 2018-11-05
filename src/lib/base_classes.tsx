@@ -25,6 +25,7 @@ const initalBaseUiState:BaseUiState = {
 
 export class ReduxComponentBaseClass extends React.Component <MinimalPropRequirement, any> {
 	component_class: React.ComponentClass<MinimalPropRequirement, any> = ReduxComponentBaseClass
+
 	name: string = "pure ReduxComponentBaseClass"
 	container: Element|null= null
 	reducers: {[reducerName:string]: Reducer} = {}
@@ -32,9 +33,6 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 	invertedActiveState: boolean = false
 	deactivates_ui: boolean = false
 	uiActive: boolean = false
-	state = {
-		elementDisabled: true
-	}
 	store: Store
 
 	
@@ -48,25 +46,15 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 		}
 		this.reducers["UiActiveState"] = this.uiActiveReducer
 		this.store = createStore(this.uiActiveReducer)
-		// console.log(this.uiActiveAction)
-	}
-
-	componentDidMount(){
-		this.setState({elementDisabled: (this.uiActive === this.invertedActiveState)})
 	}
 
 	show():void{
-		// ReactDOM.render( <h1>The element `{this.name}` of class ReduxComponentBaseClass is an abstract class,
-		//  which is not supposed to be used on its own but subclassed</h1>, 
-		// 	this.container);
-		// console.log(typeof(this.component_class))
 		const Container = this.get_container()
 		ReactDOM.render(
 			<Provider store={this.store}>
-				< Container {...this.props} /> 
+				< Container {...this.props} {...this.state} /> 
 			</ Provider>,
 		this.container)
-
 	}
 
 	render(){
@@ -125,7 +113,7 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 	}
 
 	get_mapDispatchToProps(dispatch: Dispatch){
-		return {changeUiActiveState: (invertedActiveState: boolean) => {dispatch(outsideUiActiveAction(invertedActiveState))}}
+		return {changeUiActiveState: (invertedActiveState: boolean) => {dispatch(uiActiveAction(invertedActiveState))}}
 	}
 
 	get_container(){
@@ -139,7 +127,7 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 
 }
 
-const outsideUiActiveAction = (invertedActiveState: boolean):AnyAction => {
+const uiActiveAction = (invertedActiveState: boolean):AnyAction => {
 		if(invertedActiveState){
 			return {type: "ACTIVATE_UI"}
 		}

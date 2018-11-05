@@ -33,7 +33,7 @@ export class UiGenerator {
 		const middlewares = [logger];
 		const middlewareEnhancer =applyMiddleware(...middlewares)
 		const composeEnhancers = composeWithDevTools({})
-	  	const composedEnhancers = composeEnhancers(middlewareEnhancer);
+  	const composedEnhancers = composeEnhancers(middlewareEnhancer);
 		const store = createStore(
 	    combineReducers(this.reducers),
 	    preloadedState,
@@ -55,7 +55,7 @@ export class UiGenerator {
 		this.get_reducers()
 		let store = this.configureStore()
 		for (let element of this.element_list){
-			console.log(element)
+			// console.log("ui generator", element.state)
 			element.setStore(store)
 			element.show()
 		}
