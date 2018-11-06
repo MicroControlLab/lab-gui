@@ -6,7 +6,7 @@ import { connect, Provider } from "react-redux"
 
 
 export interface MinimalPropRequirement{
-	container: Element|null
+	container: string|Element|null
 	name: string
 
 }
@@ -38,14 +38,44 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 
 	constructor(props: MinimalPropRequirement){
 		super(props)
-		if(props.container !== undefined){
-    	this.container = props.container
-		}
+		// if(props.container !== undefined){
+  //   	this.container = props.container
+		// }
 		if(props.name !== undefined){
     	this.name = props.name
 		}
+		this.validate_container(props.container)
 		this.reducers["UiActiveState"] = this.uiActiveReducer
 		this.store = createStore(this.uiActiveReducer)
+	}
+
+	validate_container(container: MinimalPropRequirement["container"]){
+		if(container instanceof Element){
+			this.container = this.props.container as Element
+		}
+		else if(typeof container === "string"){
+			let selectedElements = document.querySelectorAll(container)
+			if(selectedElements.length === 1){
+				this.container = selectedElements[0]
+			}
+			else if(selectedElements.length === 0){
+				throw `The container selector of ${this.name} needs to match exactly one ` +
+							`valid html element. The given value of container is ${container} ` +
+							`and matches no element.`
+			}
+			else{
+				console.warn( `The container selector of ${this.name} needs to match exactly one ` +
+											`valid html element. The given value of container is ${container} ` +
+											`and matches:`)
+
+				console.log(selectedElements)
+				this.container = selectedElements[0]
+			}
+		}
+		else{
+			throw `The container of ${this.name} needs to be a querySelector string or ` +
+						`a valid html element. The given value is ${container}`
+		}
 	}
 
 	show():void{

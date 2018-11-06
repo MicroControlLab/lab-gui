@@ -14,14 +14,14 @@ const initialState = {
 
 
 
-const TestContainer = document.querySelector(".test-container");
+const TestContainer1 = document.querySelector(".test-container");
 const TestContainer2 = document.querySelector(".test-container2");
 const TestContainer3 = document.querySelector(".test-container3");
 const TestContainer4 = document.querySelector(".test-container4");
 
 const Ui = new UiGenerator()
 
-const start1 = new StartBtn({container: TestContainer, name: "start1"})
+const start1 = new StartBtn({container: TestContainer1, name: "start1"})
 start1.changeSettings({text: "start 1"})
 const start2 = new StartBtn({container: TestContainer2, name: "start2"})
 start2.changeSettings({text: "start 2"})
@@ -29,7 +29,7 @@ const start3 = new StartBtn({container: TestContainer3, name: "start3"})
 start3.changeSettings({text: "start 3"})
 const stop = new StopBtn({container: TestContainer4, name: "stop", text: "foo"})
 stop.changeSettings({text: "Bar"})
-// stop.changeInlineStyles({padding: "30px"})
+stop.changeInlineStyles({padding: "30px"})
 
 Ui.add_element(start1)
 Ui.add_element(start2)
