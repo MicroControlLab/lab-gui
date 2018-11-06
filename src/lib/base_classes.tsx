@@ -108,7 +108,7 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 		return this.reducers
 	}
 
-	get_mapStateToProps(state: GlobalBaseUiState){
+	get_mapStateToProps(state: GlobalBaseUiState): object{
 		return {uiActive: state.UiActiveState.uiActive}
 	}
 

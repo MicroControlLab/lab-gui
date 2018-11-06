@@ -12,19 +12,6 @@ const initialState = {
 	uiActive: false
 }
 
-const testReducer: Reducer<any, AnyAction> =
-(state: any = initialState, action: AnyAction) =>{
-	let users;
-  switch (action.type) {
-  	case "DEACTIVATE_UI":
-  		return {...state, uiActive: false};
-  	case "ACTIVATE_UI":
-  		return {...state, uiActive: true};
-    default:
-      return {...state, uiActive: false};;
-  }
-}
-
 
 
 const TestContainer = document.querySelector(".test-container");
@@ -41,7 +28,8 @@ start2.changeSettings({text: "start 2"})
 const start3 = new StartBtn({container: TestContainer3, name: "start3"})
 start3.changeSettings({text: "start 3"})
 const stop = new StopBtn({container: TestContainer4, name: "stop", text: "foo"})
-stop.changeSettings({text: "bar"})
+stop.changeSettings({text: "Bar"})
+// stop.changeInlineStyles({padding: "30px"})
 
 Ui.add_element(start1)
 Ui.add_element(start2)

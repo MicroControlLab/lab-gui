@@ -2,45 +2,53 @@ import { Store } from "redux"
 
 
 import * as React from 'react'
+import { CSSProperties } from 'react'
 import * as ReactDOM from "react-dom"
 import Button from '@material-ui/core/Button'
+import { ButtonProps } from '@material-ui/core/Button'
 import { Provider } from 'react-redux'
 import { MinimalPropRequirement, ReduxComponentBaseClass} from "../base_classes"
 
-
-export interface newButtonProps extends MinimalPropRequirement, ButtonProps{
+export interface LabUiButtonProps extends MinimalPropRequirement, DefaultButtonProps{
+	name: string
 }
 
-interface ButtonProps{
-	color?: "primary"|"secondary"
+interface DefaultButtonProps extends ButtonProps{
 	text?: string
 	class_names?: string|string[]
-	className?: "button"
-	disabled?: boolean
+	inLineStyles?: CSSProperties
 }
 
-export class ReduxButton extends ReduxComponentBaseClass{
-	component_class: React.ComponentClass<newButtonProps, any> = ReduxButton
-	defaultState: ButtonProps = {
+class ReduxButton extends ReduxComponentBaseClass{
+	component_class: React.ComponentClass<LabUiButtonProps, any> = ReduxButton
+	defaultState: DefaultButtonProps = {
 		color: "primary",
 		text: "button text",
 		class_names: "button",
-		className: "button"
+		className: "button",
+		variant: "contained",
+		inLineStyles: {
+			textTransform: "none",
+		}
 	}
-	state: ButtonProps = {}
+	state: DefaultButtonProps = {}
 	deactivates_ui: boolean = true
 
-	constructor(props: newButtonProps){
+	constructor(props: LabUiButtonProps){
 		super(props)
 		this.set_init_state()
 	}
 
-	set_init_state():void{
-		let cleanedProps = this.props as ButtonProps
+	set_init_state(): void{
+		let cleanedProps = this.props as DefaultButtonProps
 		this.state = {...this.defaultState, ...cleanedProps}
 	}
 
-	changeSettings(updateState: ButtonProps){
+	changeInlineStyles(styles: CSSProperties){
+		this.state.inLineStyles = {...this.state.inLineStyles, ...styles}
+	}
+
+	changeSettings(updateState: DefaultButtonProps): void{
 		this.state = {...this.state, ...updateState}
 	}
 
@@ -61,10 +69,11 @@ export class ReduxButton extends ReduxComponentBaseClass{
 		const {uiActive, changeUiActiveState} = this.props
 		return (
 			<Provider store={this.store}>
-	      <Button variant="contained"
+	      <Button variant={this.state.variant}
 	      				color={this.state.color}
 	      				disabled={this.is_disabled(uiActive)}
 	      				className={this.state.className}
+	      				style={this.state.inLineStyles}
 	      				onClick={() => {changeUiActiveState(this.invertedActiveState)}}>
 	        {this.state.text}
 	      </Button>
@@ -76,16 +85,17 @@ export class ReduxButton extends ReduxComponentBaseClass{
 export class StartBtn extends ReduxButton{
 	component_class = StartBtn
 
-	constructor(props: newButtonProps){
+	constructor(props: LabUiButtonProps){
 		super(props)
 		this.defaultState.text = "Start"
+		this.set_init_state()
 	}
 }
 
 export class StopBtn extends ReduxButton{
 	component_class = StopBtn
 
-	constructor(props: newButtonProps){
+	constructor(props: LabUiButtonProps){
 		super(props)
 		this.defaultState.text = "Stop"
 		this.defaultState.color = "secondary"
