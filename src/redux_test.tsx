@@ -36,3 +36,7 @@ Ui.add_element(start2)
 Ui.add_element(start3)
 Ui.add_element(stop)
 Ui.show()
+
+const store = Ui.get_store()
+
+setTimeout(() => {console.log("auto actived UI"); return store.dispatch({type: "ACTIVATE_UI"})}, 5000)

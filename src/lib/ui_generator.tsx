@@ -6,6 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 
 export class UiGenerator {
+	store: Store| null = null
 	element_list: ReduxComponentBaseClass[] = []
 	reducers: {[reducerName:string]: Reducer} = {}
 
@@ -19,7 +20,7 @@ export class UiGenerator {
 			const reducers = element.get_reducers()
 			for(let reducerName in reducers){
 				if(reducerName in this.reducers && !(element.defaultReducerNames.indexOf(reducerName) > -1)){
-					throw `The reducerName '${reducerName}' of the ` + 
+					throw `The reducerName '${reducerName}' of the ` +
 								`element with name '${element.name}', is already in reducers.`
 				}
 				else{
@@ -27,6 +28,16 @@ export class UiGenerator {
 				}
 			}
 		}
+	}
+
+	get_store(){
+		if(this.store !== null){
+			return this.store
+		}
+		else
+			throw "The store of the UiGenerator instance wasn't initialized yet, " +
+						"please call the 'show' method before trying to access the store.";
+
 	}
 
 	configureStore(preloadedState={}):Store {
@@ -47,13 +58,14 @@ export class UiGenerator {
 				}
 		  )
 		}
+		this.store = store
 		​
 	  return store
 	}
 
 	show(){
 		this.get_reducers()
-		let store = this.configureStore()
+		const store = this.configureStore()
 		for (let element of this.element_list){
 			// console.log("ui generator", element.state)
 			element.setStore(store)
