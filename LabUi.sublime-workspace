@@ -1,0 +1,562 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"querySelector",
+				"querySelectorAll\tmethod"
+			],
+			[
+				"contai",
+				"container\tparameter"
+			],
+			[
+				"conta",
+				"container\tparameter"
+			],
+			[
+				"type",
+				"typeof"
+			],
+			[
+				"pa",
+				"padding\tproperty"
+			],
+			[
+				"chan",
+				"changeInlineStyles\tmethod"
+			],
+			[
+				"in",
+				"inLineStyles\tproperty"
+			],
+			[
+				"va",
+				"variant\tproperty"
+			],
+			[
+				"cla",
+				"className"
+			],
+			[
+				"nam",
+				"name\t(ui_generator.tsx)"
+			],
+			[
+				"sty",
+				"style\tproperty"
+			],
+			[
+				"de",
+				"defaultState\tproperty"
+			],
+			[
+				"set",
+				"set_init_state\tmethod"
+			],
+			[
+				"se",
+				"secondary"
+			],
+			[
+				"def",
+				"defaultState"
+			],
+			[
+				"BU",
+				"ButtonProps"
+			],
+			[
+				"confi",
+				"configuredState"
+			],
+			[
+				"con",
+				"configuredState\tproperty"
+			],
+			[
+				"component",
+				"componentWillMount\tmethod"
+			],
+			[
+				"cons",
+				"console"
+			],
+			[
+				"conso",
+				"console.log"
+			],
+			[
+				"componen",
+				"componentDidMount\tmethod"
+			],
+			[
+				"stat",
+				"state"
+			],
+			[
+				"ui",
+				"uiActiveReducer\tmethod"
+			],
+			[
+				"compo",
+				"componentDidMount\tmethod"
+			],
+			[
+				"na",
+				"name"
+			],
+			[
+				"com",
+				"componentWillMount\tmethod"
+			],
+			[
+				"s",
+				"state\tproperty"
+			],
+			[
+				"Bu",
+				"ButtonProps"
+			],
+			[
+				"Butt",
+				"ButtonProps"
+			],
+			[
+				"Fa",
+				"false\tkeyword"
+			],
+			[
+				"eme",
+				"elementDisabled"
+			],
+			[
+				"ret",
+				"return"
+			],
+			[
+				"dis",
+				"deactivates_ui\tproperty"
+			],
+			[
+				"al",
+				"allowDefaultReducerOverwrite"
+			],
+			[
+				"reduc",
+				"reducerName"
+			],
+			[
+				"co",
+				"color"
+			],
+			[
+				"sto",
+				"stop\tconst"
+			],
+			[
+				"ca",
+				"case\tkeyword"
+			],
+			[
+				"red",
+				"reducers"
+			],
+			[
+				"re",
+				"reducers\tproperty"
+			],
+			[
+				"redu",
+				"reducerName"
+			],
+			[
+				"col",
+				"color\tproperty"
+			],
+			[
+				"on",
+				"onClick\t(plotting.tsx)"
+			],
+			[
+				"st",
+				"stop"
+			],
+			[
+				"start",
+				"startBtn"
+			],
+			[
+				"Sta",
+				"StartBtn"
+			],
+			[
+				"U",
+				"UiGenerator"
+			],
+			[
+				"Red",
+				"ReduxComponentBaseClass"
+			],
+			[
+				"Redu",
+				"ReduxComponentBaseClass\t(button.tsx)"
+			],
+			[
+				"Mi",
+				"MinimalPropRequirement"
+			],
+			[
+				"Re",
+				"ReduxComponentBasedClass\tclass"
+			],
+			[
+				"ele",
+				"element"
+			],
+			[
+				"St",
+				"StopBtn"
+			],
+			[
+				"Tes",
+				"TestContainer"
+			],
+			[
+				"el",
+				"else\t(project.tsx)"
+			],
+			[
+				"ty",
+				"typeof\tkeyword"
+			],
+			[
+				"ths",
+				"this"
+			],
+			[
+				"th",
+				"this"
+			],
+			[
+				"pro",
+				"props"
+			],
+			[
+				"b",
+				"buttons/"
+			],
+			[
+				"Pr",
+				"Provider"
+			],
+			[
+				"S",
+				"Store\tinterface"
+			],
+			[
+				"o",
+				"onClick"
+			],
+			[
+				"ReactD",
+				"ReactDefaultProps"
+			],
+			[
+				"HtmlA",
+				"HTMLAnchorElement\tvar"
+			],
+			[
+				"func",
+				"Function\tconst"
+			],
+			[
+				"Us",
+				"UserType"
+			],
+			[
+				"Te",
+				"TestInterface\tinterface"
+			],
+			[
+				"test",
+				"testVal1"
+			],
+			[
+				"Fr",
+				"FETCH_USER_FULFILLED\tenum member"
+			],
+			[
+				"FETCH_USER_",
+				"FETCH_USER_PENDING\t(users.tsx)"
+			],
+			[
+				"User",
+				"UserType\t(users.tsx)"
+			],
+			[
+				"UsersA",
+				"UsersActionTypes"
+			],
+			[
+				"UserA",
+				"UsersActionTypes\tenum"
+			],
+			[
+				"im",
+				"import"
+			],
+			[
+				"nu",
+				"number\tkeyword"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Install Package Control"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/git/MicroControlLab/LabUi"
+	],
+	"file_history":
+	[
+		"/D/git/MicroControlLab/LabUi/src/lib/plotting.tsx",
+		"/D/git/MicroControlLab/LabUi/src/lib/base_classes.tsx",
+		"/D/git/MicroControlLab/LabUi/src/redux_test.tsx",
+		"/D/git/MicroControlLab/LabUi/index.html",
+		"/D/git/MicroControlLab/LabUi/package.json",
+		"/D/git/MicroControlLab/LabUi/src/lib/buttons/button.tsx",
+		"/D/git/MicroControlLab/LabUi/src/lib/ui_generator.tsx",
+		"/D/git/MicroControlLab/LabUi/lab_ui.sublime-project",
+		"/D/git/MicroControlLab/LabUi/.gitignore",
+		"/D/remex_svn/Sebastian/lab_ui/src/project.tsx",
+		"/D/remex_svn/Sebastian/lab_ui/src/lib/redux_store.tsx",
+		"/D/remex_svn/Sebastian/lab_ui/index.html",
+		"/D/remex_svn/Sebastian/lab_ui/src/lib/base_classes.tsx",
+		"/D/remex_svn/Sebastian/lab_ui/src/test-material-ui.tsx",
+		"/D/remex_svn/Sebastian/lab_ui/src/index.tsx",
+		"/D/remex_svn/Sebastian/lab_ui/src/lib/buttons/button.js",
+		"/D/remex_svn/Sebastian/lab_ui/src/plot_test.tsx",
+		"/D/remex_svn/Sebastian/lab_ui/src/lib/plotting/plotting_redux_new.tsx",
+		"/D/remex_svn/Sebastian/lab_ui/src/lib/plotting/plotting_redux_old.tsx",
+		"/D/remex_svn/Sebastian/lab_ui/src/redux_test.tsx",
+		"/D/remex_svn/Sebastian/lab_ui/src/redux_test.js",
+		"/D/remex_svn/Sebastian/lab_ui/tsconfig.json",
+		"/D/remex_svn/Sebastian/lab_ui/src/lib/configureStore.ts",
+		"/D/remex_svn/Sebastian/lab_ui/lab_ui.sublime-project",
+		"/D/remex_svn/Sebastian/lab_ui/package.json",
+		"/D/remex_svn/Sebastian/lab_ui/foo",
+		"/D/remex_svn/Sebastian/lab_ui/src/foo",
+		"/D/remex_svn/Sebastian/lab_ui/src/lib/plotting/plotting_redux.tsx",
+		"/D/remex_svn/Sebastian/lab_ui/src/lib/plotting.tsx",
+		"/D/remex_svn/Sebastian/lab_ui/src/lib/utils.tsx",
+		"/D/git/redux-typescript-example/src/containers/userProfile.tsx",
+		"/D/git/redux-typescript-example/src/reducers/userProfile.tsx",
+		"/D/git/redux-typescript-example/src/components/users.tsx",
+		"/D/git/redux-typescript-example/src/index.tsx",
+		"/D/git/redux-typescript-example/src/containers/users.tsx",
+		"/D/git/redux-typescript-example/src/components/userProfile.tsx",
+		"/D/git/redux-typescript-example/src/actions/users.tsx",
+		"/D/git/redux-typescript-example/src/components/app.tsx",
+		"/D/git/redux-typescript-example/src/components/button.tsx",
+		"/D/git/redux-typescript-example/src/components/home.tsx",
+		"/D/git/redux-typescript-example/src/components/navBar.tsx",
+		"/D/git/redux-typescript-example/src/components/userItem.tsx",
+		"/D/git/redux-typescript-example/src/reducers/users.tsx",
+		"/D/git/redux-typescript-example/src/reducers/index.tsx",
+		"/D/git/redux-typescript-example/tsconfig.json",
+		"/D/git/redux-typescript-example/src/store.tsx",
+		"/D/git/redux-typescript-example/package.json",
+		"/D/git/redux-typescript-example/src/types.tsx",
+		"/D/git/redux-typescript-example/globals.d.ts",
+		"/D/git/redux-typescript-example/README.md",
+		"/C/Users/sebastian/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/sebastian/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			" ButtonProps",
+			"ButtonProps",
+			"Container",
+			"fullProps"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			" LabUiButtonProps",
+			"props"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 64.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 0.0
+	},
+	"output.doc":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 126.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "LabUi.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 220.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

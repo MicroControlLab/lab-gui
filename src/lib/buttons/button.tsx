@@ -7,7 +7,8 @@ import * as ReactDOM from "react-dom"
 import Button from '@material-ui/core/Button'
 import { ButtonProps } from '@material-ui/core/Button'
 import { Provider } from 'react-redux'
-import { MinimalPropRequirement, ReduxComponentBaseClass} from "../base_classes"
+
+import { MinimalPropRequirement, BaseTrigger } from "../base-classes"
 
 export interface LabUiButtonProps extends MinimalPropRequirement, DefaultButtonProps{
 	name: string
@@ -19,7 +20,7 @@ interface DefaultButtonProps extends ButtonProps{
 	inLineStyles?: CSSProperties
 }
 
-class ReduxButton extends ReduxComponentBaseClass{
+class ReduxButton extends BaseTrigger{
 	component_class: React.ComponentClass<LabUiButtonProps, any> = ReduxButton
 	defaultState: DefaultButtonProps = {
 		color: "primary",

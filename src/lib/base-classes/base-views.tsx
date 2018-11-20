@@ -3,28 +3,21 @@ import * as ReactDOM from "react-dom"
 import { Reducer, AnyAction, Store, createStore, Dispatch } from 'redux'
 import { connect, Provider } from "react-redux"
 
+import { MinimalPropRequirement, BaseUiState } from "."
+
+// export interface BaseUiState{
+// 	uiActive: boolean
+// }
+
+// export interface GlobalBaseUiState{
+// 	UiActiveState: BaseUiState
+// }
 
 
-export interface MinimalPropRequirement{
-	container: string|Element|null
-	name: string
+const dummyreducer = (state: any={}, action: any) => state
 
-}
-
-export interface BaseUiState{
-	uiActive: boolean
-}
-
-export interface GlobalBaseUiState{
-	UiActiveState: BaseUiState
-}
-
-const initalBaseUiState:BaseUiState = {
-	uiActive: false
-}
-
-export class ReduxComponentBaseClass extends React.Component <MinimalPropRequirement, any> {
-	component_class: React.ComponentClass<MinimalPropRequirement, any> = ReduxComponentBaseClass
+export class BaseView extends React.Component <MinimalPropRequirement, any> {
+	component_class: React.ComponentClass<MinimalPropRequirement, any> = BaseView
 
 	name: string = "pure ReduxComponentBaseClass"
 	container: Element|null= null
@@ -38,15 +31,12 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 
 	constructor(props: MinimalPropRequirement){
 		super(props)
-		// if(props.container !== undefined){
-  //   	this.container = props.container
-		// }
 		if(props.name !== undefined){
     	this.name = props.name
 		}
 		this.validate_container(props.container)
-		this.reducers["UiActiveState"] = this.uiActiveReducer
-		this.store = createStore(this.uiActiveReducer)
+		// this initialisation of store just exists to satisfy TS lint
+		this.store = createStore(dummyreducer)
 	}
 
 	validate_container(container: MinimalPropRequirement["container"]){
@@ -92,26 +82,6 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 		 which is not supposed to be used on its own but subclassed</h1>
 	}
 
-	uiActiveReducer(state: BaseUiState=initalBaseUiState, action: AnyAction):BaseUiState{
-		switch(action.type){
-    	case "ACTIVATE_UI":
-    		return {...state, uiActive: true}
-    	case "DEACTIVATE_UI":
-    		return {...state, uiActive: false}
-    	default:
-    		return state
-		}
-	}
-
-	uiActiveAction(invertedActiveState: boolean):AnyAction{
-		if(invertedActiveState){
-			return {type: "ACTIVATE_UI"}
-		}
-		else{
-			return {type: "DEACTIVATE_UI"}
-		}
-	}
-
 	setStore(store: Store){
 		this.store = store
 	}
@@ -138,14 +108,12 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 		return this.reducers
 	}
 
-	get_mapStateToProps(state: GlobalBaseUiState): object{
-		return {uiActive: state.UiActiveState.uiActive}
+	get_mapStateToProps(state: any): object{
+		return {}
 	}
 
 	get_mapDispatchToProps(dispatch: Dispatch){
-		return {changeUiActiveState: (invertedActiveState: boolean) =>
-			{dispatch(uiActiveAction(invertedActiveState))}
-		}
+		return {}
 	}
 
 	get_container(){
@@ -158,12 +126,3 @@ export class ReduxComponentBaseClass extends React.Component <MinimalPropRequire
 	}
 
 }
-
-const uiActiveAction = (invertedActiveState: boolean):AnyAction => {
-		if(invertedActiveState){
-			return {type: "ACTIVATE_UI"}
-		}
-		else{
-			return {type: "DEACTIVATE_UI"}
-		}
-	}
