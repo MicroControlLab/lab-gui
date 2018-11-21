@@ -7,6 +7,7 @@ import { BaseTrigger } from "./base-triggers"
 export interface MinimalPropRequirement{
 	container: string|Element|null
 	name: string
+	debug?:boolean
 }
 
 

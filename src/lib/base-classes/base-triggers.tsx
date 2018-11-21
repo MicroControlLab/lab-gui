@@ -13,11 +13,10 @@ export class BaseTrigger extends BaseControl{
 
 	constructor(props: MinimalPropRequirement){
 		super(props)
-		this.addDispatch("changeUiActiveState", this.uiActiveAction)
+		this.addDispatcher("changeUiActiveState", this.uiActiveAction)
 	}
 
 	uiActiveAction(args:{invertedActiveState: boolean}):AnyAction {
-	console.warn("invertedActiveState", args)
 	if(args.invertedActiveState){
 			// return {type: "ACTIVATE_UI"}
 			return {type: "REQUEST_STOP_ACTION"}

@@ -16,6 +16,7 @@ export class BaseView extends React.Component <MinimalPropRequirement, any> {
 
 	name: string = "pure ReduxComponentBaseClass"
 	container: Element|null= null
+	debug:boolean = false
 	reducers: {[reducerName:string]: Reducer} = {}
 	defaultReducerNames: string[] = []
 	invertedActiveState: boolean = false
@@ -28,9 +29,10 @@ export class BaseView extends React.Component <MinimalPropRequirement, any> {
 	constructor(props: MinimalPropRequirement){
 		super(props)
 		this.state = {dispatchObj: {}}
-		if(props.name !== undefined){
-    	this.name = props.name
-		}
+  	this.name = props.name
+  	if(props.debug){
+  		this.debug = props.debug
+  	}
 		this.validate_container(props.container)
 		// this initialisation of store just exists to satisfy TS lint
 		this.store = createStore(dummyreducer)
@@ -120,6 +122,18 @@ export class BaseView extends React.Component <MinimalPropRequirement, any> {
 			mapDispatchToProps
 			)(this.component_class)
 		return Container
+	}
+
+	setDebug(useDebug: boolean): void{
+		this.debug = useDebug
+	}
+
+	log(...args:any[]){
+		if(this.debug){
+			console.warn("Debug message from the element with name: ", this.name)
+			console.log("The Attributes of this instance are: ", this)
+			console.log(...args)
+		}
 	}
 
 }

@@ -13,14 +13,25 @@ const initalBaseUiState: BaseUiState = {
 export class BaseControl extends BaseView{
 	component_class: React.ComponentClass<MinimalPropRequirement, any> = BaseControl
 	defaultReducerNames: string[] = ["UiActiveState"]
-	// dispatches: {[callbackName:string]: {callback: Function, args: object|undefined}} = {}
+	callbacks: {name:string, callback: Function, args: object}[] = []
 
 	constructor(props: MinimalPropRequirement){
 		super(props)
 		this.reducers["UiActiveState"] = this.uiActiveReducer
 	}
 
-	addDispatch(name: string, callback: Function, args?: object){
+	uiActiveReducer(state: BaseUiState=initalBaseUiState, action: AnyAction):BaseUiState{
+		switch(action.type){
+    	case "ACTIVATE_UI":
+    		return {...state, uiActive: true}
+    	case "DEACTIVATE_UI":
+    		return {...state, uiActive: false}
+    	default:
+    		return state
+		}
+	}
+
+	addDispatcher(name: string, callback: Function, args?: object){
 		this.dispatchers = { ...this.dispatchers, [name]: callback}
 	}
 
@@ -34,17 +45,6 @@ export class BaseControl extends BaseView{
 			return dispatchObj
 		}
 
-	}
-
-	uiActiveReducer(state: BaseUiState=initalBaseUiState, action: AnyAction):BaseUiState{
-		switch(action.type){
-    	case "ACTIVATE_UI":
-    		return {...state, uiActive: true}
-    	case "DEACTIVATE_UI":
-    		return {...state, uiActive: false}
-    	default:
-    		return state
-		}
 	}
 
 	getMapStateToProps(state: GlobalBaseUiState): object{

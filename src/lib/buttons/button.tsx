@@ -66,7 +66,8 @@ class ReduxButton extends BaseTrigger{
 	}
 
 	render(){
-		const {uiActive, changeUiActiveState} = this.props
+		this.log("The props at reder time are: ", this.props)
+		const { uiActive, changeUiActiveState } = this.props
 		return (
 			<Provider store={this.store}>
 	      <Button variant={this.state.variant}
