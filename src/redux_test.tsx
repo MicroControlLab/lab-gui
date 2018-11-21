@@ -29,7 +29,7 @@ const start3 = new StartBtn({container: TestContainer3, name: "start3"})
 start3.changeSettings({text: "start 3"})
 const stop = new StopBtn({container: TestContainer4, name: "stop", text: "foo"})
 stop.changeSettings({text: "Bar"})
-stop.changeInlineStyles({padding: "30px"})
+stop.changeInlineStyles({padding: "20px"})
 
 Ui.add_element(start1)
 Ui.add_element(start2)
@@ -39,4 +39,4 @@ Ui.show()
 
 const store = Ui.get_store()
 
-setTimeout(() => {console.log("auto actived UI"); return store.dispatch({type: "ACTIVATE_UI"})}, 5000)
+setTimeout(() => {console.log("auto actived UI"); return store.dispatch({type: "ACTIVATE_UI"})}, 2000)

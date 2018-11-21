@@ -12,12 +12,29 @@ const initalBaseUiState: BaseUiState = {
 
 export class BaseControl extends BaseView{
 	component_class: React.ComponentClass<MinimalPropRequirement, any> = BaseControl
+	defaultReducerNames: string[] = ["UiActiveState"]
+	// dispatches: {[callbackName:string]: {callback: Function, args: object|undefined}} = {}
 
 	constructor(props: MinimalPropRequirement){
 		super(props)
 		this.reducers["UiActiveState"] = this.uiActiveReducer
 	}
 
+	addDispatch(name: string, callback: Function, args?: object){
+		this.dispatchers = { ...this.dispatchers, [name]: callback}
+	}
+
+	getMapDispatchToProps(dispatchers: {[callbackName:string]: Function}) {
+		return (dispatch: Dispatch):{[callbackName:string]:Dispatch} => {
+			let dispatchObj: {[callbackName:string]:Dispatch} = {}
+			for(let callbackName in dispatchers){
+				let callback: Function = dispatchers[callbackName]
+					dispatchObj[callbackName] = ( args ) => dispatch(callback(args))
+			}
+			return dispatchObj
+		}
+
+	}
 
 	uiActiveReducer(state: BaseUiState=initalBaseUiState, action: AnyAction):BaseUiState{
 		switch(action.type){
@@ -30,23 +47,7 @@ export class BaseControl extends BaseView{
 		}
 	}
 
-	get_mapStateToProps(state: GlobalBaseUiState): object{
+	getMapStateToProps(state: GlobalBaseUiState): object{
 		return {uiActive: state.UiActiveState.uiActive}
 	}
-
-	get_mapDispatchToProps(dispatch: Dispatch){
-		return {changeUiActiveState: (invertedActiveState: boolean) =>
-			{dispatch(uiActiveAction(invertedActiveState))}
-		}
-	}
 }
-
-
-const uiActiveAction = (invertedActiveState: boolean):AnyAction => {
-		if(invertedActiveState){
-			return {type: "ACTIVATE_UI"}
-		}
-		else{
-			return {type: "DEACTIVATE_UI"}
-		}
-	}

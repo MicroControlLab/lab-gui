@@ -1,13 +1,14 @@
 import { BaseView } from "./base-views"
 import { BaseControl } from "./base-control"
+import { Dispatch } from 'redux'
 import { BaseTrigger } from "./base-triggers"
 
 
 export interface MinimalPropRequirement{
 	container: string|Element|null
 	name: string
-
 }
+
 
 export interface BaseUiState{
 	uiActive: boolean

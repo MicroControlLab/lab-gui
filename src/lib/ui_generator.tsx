@@ -1,4 +1,4 @@
-import { ReduxComponentBaseClass } from "./base_classes";
+import { BaseView } from "./base-classes";
 import { Reducer, AnyAction, Store } from 'redux'
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { logger } from 'redux-logger';
@@ -7,7 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 export class UiGenerator {
 	store: Store| null = null
-	element_list: ReduxComponentBaseClass[] = []
+	element_list: BaseView[] = []
 	reducers: {[reducerName:string]: Reducer} = {}
 
 
@@ -17,7 +17,7 @@ export class UiGenerator {
 
 	get_reducers(): void{
 		for (let element of this.element_list){
-			const reducers = element.get_reducers()
+			const reducers = element.getReducers()
 			for(let reducerName in reducers){
 				if(reducerName in this.reducers && !(element.defaultReducerNames.indexOf(reducerName) > -1)){
 					throw `The reducerName '${reducerName}' of the ` +
@@ -31,7 +31,7 @@ export class UiGenerator {
 	}
 
 	get_store(){
-		if(this.store !== null){
+		if(this.store){
 			return this.store
 		}
 		else
@@ -67,7 +67,6 @@ export class UiGenerator {
 		this.get_reducers()
 		const store = this.configureStore()
 		for (let element of this.element_list){
-			// console.log("ui generator", element.state)
 			element.setStore(store)
 			element.show()
 		}

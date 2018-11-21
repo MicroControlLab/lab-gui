@@ -5,16 +5,11 @@ import { connect, Provider } from "react-redux"
 
 import { MinimalPropRequirement, BaseUiState } from "."
 
-// export interface BaseUiState{
-// 	uiActive: boolean
-// }
-
-// export interface GlobalBaseUiState{
-// 	UiActiveState: BaseUiState
-// }
-
-
 const dummyreducer = (state: any={}, action: any) => state
+
+interface dispatchObjectState {
+	dispatchObj:{[callbackName:string]:Dispatch}
+}
 
 export class BaseView extends React.Component <MinimalPropRequirement, any> {
 	component_class: React.ComponentClass<MinimalPropRequirement, any> = BaseView
@@ -22,15 +17,17 @@ export class BaseView extends React.Component <MinimalPropRequirement, any> {
 	name: string = "pure ReduxComponentBaseClass"
 	container: Element|null= null
 	reducers: {[reducerName:string]: Reducer} = {}
-	defaultReducerNames: string[] = ["UiActiveState"]
+	defaultReducerNames: string[] = []
 	invertedActiveState: boolean = false
 	deactivates_ui: boolean = false
 	uiActive: boolean = false
 	store: Store
+	dispatchers: {[callbackName:string]: Function} = {}
 
 
 	constructor(props: MinimalPropRequirement){
 		super(props)
+		this.state = {dispatchObj: {}}
 		if(props.name !== undefined){
     	this.name = props.name
 		}
@@ -69,7 +66,7 @@ export class BaseView extends React.Component <MinimalPropRequirement, any> {
 	}
 
 	show():void{
-		const Container = this.get_container()
+		const Container = this.getReduxContainer()
 		ReactDOM.render(
 			<Provider store={this.store}>
 				< Container {...this.props} {...this.state} />
@@ -86,7 +83,7 @@ export class BaseView extends React.Component <MinimalPropRequirement, any> {
 		this.store = store
 	}
 
-	add_reducer(reducerName: string, reducer: Reducer,
+	addReducer(reducerName: string, reducer: Reducer,
 							allowDefaultReducerOverwrite: boolean=false):void{
 		if(this.defaultReducerNames.indexOf(reducerName) > -1 &&
 				!allowDefaultReducerOverwrite){
@@ -104,22 +101,22 @@ export class BaseView extends React.Component <MinimalPropRequirement, any> {
 		this.reducers[reducerName] = reducer
 	}
 
-	get_reducers():{[reducerName:string]: Reducer}{
+	getReducers():{[reducerName:string]: Reducer}{
 		return this.reducers
 	}
 
-	get_mapStateToProps(state: any): object{
+	getMapStateToProps(state: any): object{
 		return {}
 	}
 
-	get_mapDispatchToProps(dispatch: Dispatch){
+	getMapDispatchToProps(dispatchers: {[callbackName:string]: Function}){
 		return {}
 	}
 
-	get_container(){
-		const mapDispatchToProps = this.get_mapDispatchToProps
+	getReduxContainer(){
+		const mapDispatchToProps = this.getMapDispatchToProps(this.dispatchers)
 		const Container = connect(
-			this.get_mapStateToProps,
+			this.getMapStateToProps,
 			mapDispatchToProps
 			)(this.component_class)
 		return Container

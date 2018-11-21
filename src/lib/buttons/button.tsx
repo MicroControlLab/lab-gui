@@ -1,4 +1,4 @@
-import { Store } from "redux"
+import { Store, Dispatch } from "redux"
 
 
 import * as React from 'react'
@@ -33,7 +33,6 @@ class ReduxButton extends BaseTrigger{
 		}
 	}
 	state: DefaultButtonProps = {}
-	deactivates_ui: boolean = true
 
 	constructor(props: LabUiButtonProps){
 		super(props)
@@ -45,7 +44,7 @@ class ReduxButton extends BaseTrigger{
 		this.state = {...this.defaultState, ...cleanedProps}
 	}
 
-	changeInlineStyles(styles: CSSProperties){
+	changeInlineStyles(styles: CSSProperties): void{
 		this.state.inLineStyles = {...this.state.inLineStyles, ...styles}
 	}
 
@@ -53,7 +52,7 @@ class ReduxButton extends BaseTrigger{
 		this.state = {...this.state, ...updateState}
 	}
 
-	is_disabled(uiActive: boolean){
+	is_disabled(uiActive: boolean): boolean{
 		if((this.deactivates_ui && !uiActive)||(!this.deactivates_ui && uiActive)){
 			return  true
 		}
@@ -62,8 +61,8 @@ class ReduxButton extends BaseTrigger{
 		}
 	}
 
-	onClick(){
-		this.uiActive = !this.uiActive
+	clickCallback():void{
+
 	}
 
 	render(){
@@ -75,7 +74,12 @@ class ReduxButton extends BaseTrigger{
 	      				disabled={this.is_disabled(uiActive)}
 	      				className={this.state.className}
 	      				style={this.state.inLineStyles}
-	      				onClick={() => {changeUiActiveState(this.invertedActiveState)}}>
+	      				onClick={() => {
+	      					changeUiActiveState({
+	      						invertedActiveState: this.invertedActiveState}
+	      						)
+	      				}
+	      			}>
 	        {this.state.text}
 	      </Button>
 	    </ Provider>
