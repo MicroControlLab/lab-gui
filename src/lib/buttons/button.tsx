@@ -13,7 +13,7 @@ export interface LabUiButtonProps extends MinimalPropRequirement, DefaultButtonP
   name: string
 }
 
-interface DefaultButtonProps extends ButtonProps {
+export interface DefaultButtonProps extends ButtonProps {
   text?: string
   class_names?: string | string[]
   inLineStyles?: CSSProperties
@@ -106,7 +106,7 @@ export class StopBtn extends ReduxButton {
     this.defaultState.text = 'Stop'
     this.defaultState.color = 'secondary'
     this.set_init_state()
-    this.deactivates_ui = false
+    this.deactivatesUi = false
     this.invertedActiveState = true
   }
 }
