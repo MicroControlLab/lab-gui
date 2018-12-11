@@ -64,3 +64,15 @@ typings/
 build
 dist
 package-lock.json
+
+.DS_Store
+.vscode
+.idea
+compiled
+.awcache
+.rpt2_cache
+docs
+
+# Sublime config files
+*.sublime-project
+*.sublime-workspace

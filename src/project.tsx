@@ -6,8 +6,6 @@
 
 // import { MinimalPropRequirement } from "./lib/base-classes";
 
-
-
 // const PlotContainer = document.querySelector(".plot-container");
 // const TestContainer = document.querySelector(".test-container");
 // const TestContainer2 = document.querySelector(".test-container2");
@@ -20,13 +18,13 @@
 //   container: Element;
 
 //   constructor(min_req: MinimalPropRequirement) {
-//   	if(min_req.container !== null){
-//     	this.container = min_req.container;
-// 	}
-// 	else{
-// 		throw "container is not a valid html element";
+//     if(min_req.container !== null){
+//       this.container = min_req.container;
+//   }
+//   else{
+//     throw "container is not a valid html element";
 
-// 	}
+//   }
 //   }
 
 //   show(){

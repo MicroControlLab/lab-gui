@@ -8,8 +8,6 @@
 
 // import { IMinimalData } from "./lib/base_classes";
 
-
-
 // const PlotContainer = document.querySelector(".plot-container");
 // const TestContainer = document.querySelector(".test-container");
 // const TestContainer2 = document.querySelector(".test-container2");

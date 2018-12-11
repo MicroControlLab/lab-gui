@@ -1,38 +1,46 @@
+import { StartBtn, StopBtn } from "../src/lib/buttons/button";
+import { UiGenerator } from "../src/lib/ui_generator";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { ScatterPlot } from "../src/lib/plotting";
-import * as Plotly from 'plotly.js';
-import { ScatterData} from 'plotly.js';
 
-import { IMinimalData } from "../src/lib/base_classes";
+import { Reducer, AnyAction } from "redux";
 
+// start.class_names = ["test1", "test2"]
 
+const initialState = {
+  uiActive: false
+};
 
-const PlotContainer = document.querySelector(".plot-container");
-const TestContainer = document.querySelector(".test-container");
+const TestContainer1 = document.querySelector(".test-container");
 const TestContainer2 = document.querySelector(".test-container2");
+const TestContainer3 = document.querySelector(".test-container3");
+const TestContainer4 = document.querySelector(".test-container4");
 
-let plot = new ScatterPlot({container:PlotContainer})
-plot.show()
+const Ui = new UiGenerator();
 
-import ContainedButtons from '../src/test-material-ui';
-class buttonClass{
-  container: Element;
-  
-  constructor(min_req: IMinimalData) {
-  	if(min_req.container !== null){
-    	this.container = min_req.container;
-	}
-	else{
-		throw "container is not a valid html element";
-		
-	}
-  }
+const start1 = new StartBtn({ container: TestContainer1, name: "start1" });
+start1.changeSettings({ text: "start 1" });
+const start2 = new StartBtn({ container: TestContainer2, name: "start2" });
+start2.changeSettings({ text: "start 2" });
+const start3 = new StartBtn({ container: TestContainer3, name: "start3" });
+start3.changeSettings({ text: "start 3" });
+const stop = new StopBtn({
+  container: TestContainer4,
+  name: "stop",
+  text: "foo"
+});
+stop.changeSettings({ text: "Bar" });
+stop.changeInlineStyles({ padding: "20px", marginTop: "10px" });
 
-  show(){
-    {ReactDOM.render(< ContainedButtons />, this.container ); }
-  }
-}
+Ui.add_element(start1);
+Ui.add_element(start2);
+Ui.add_element(start3);
+Ui.add_element(stop);
+Ui.show();
 
-let reactClass = new buttonClass({container:TestContainer2})
-reactClass.show()
+const store = Ui.get_store();
+
+setTimeout(() => {
+  console.log("auto actived UI");
+  return store.dispatch({ type: "ACTIVATE_UI" });
+}, 2000);

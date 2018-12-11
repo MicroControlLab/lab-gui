@@ -1,5 +1,5 @@
 import { Store, createStore, applyMiddleware, Reducer, combineReducers } from 'redux'
-import { logger } from 'redux-logger';
+import { logger } from 'redux-logger'
 // We'll be using Redux Devtools. We can use the `composeWithDevTools()`
 // directive so we can pass our middleware along with it
 import { composeWithDevTools } from 'redux-devtools-extension'
@@ -22,11 +22,10 @@ export default function configureStore(
 
   // allows hotswap for reducers
   if (process.env.NODE_ENV !== 'production' && module.hot) {
-      module.hot.accept('./reducers', () =>{
-        const nextReducer = require('./reducers/index').default;
-        store.replaceReducer(nextReducer)
-      }
-    )
+    module.hot.accept('./reducers', () => {
+      const nextReducer = require('./reducers/index').default
+      store.replaceReducer(nextReducer)
+    })
   }
 
   return store

@@ -1,53 +1,55 @@
 import * as React from 'react'
-import * as ReactDOM from "react-dom"
+import * as ReactDOM from 'react-dom'
 import { Reducer, AnyAction, Store, createStore, Dispatch } from 'redux'
-import { connect, Provider } from "react-redux"
+import { connect, Provider } from 'react-redux'
 
-
-import { MinimalPropRequirement, BaseView, BaseUiState, GlobalBaseUiState } from "./"
+import { MinimalPropRequirement, BaseView, BaseUiState, GlobalBaseUiState } from './'
 
 const initalBaseUiState: BaseUiState = {
-	uiActive: false
+  uiActive: false
 }
 
-export class BaseControl extends BaseView{
-	component_class: React.ComponentClass<MinimalPropRequirement, any> = BaseControl
-	defaultReducerNames: string[] = ["UiActiveState"]
-	callbacks: {name:string, callback: Function, args: object}[] = []
+export class BaseControl extends BaseView {
+  componentClass: React.ComponentClass<MinimalPropRequirement, any> = BaseControl
+  defaultReducerNames: string[] = ['UiActiveState']
+  callbacks: { callback: Function; args: object }[] = []
 
-	constructor(props: MinimalPropRequirement){
-		super(props)
-		this.reducers["UiActiveState"] = this.uiActiveReducer
-	}
+  constructor(props: MinimalPropRequirement) {
+    super(props)
+    this.reducers['UiActiveState'] = this.uiActiveReducer
+  }
 
-	uiActiveReducer(state: BaseUiState=initalBaseUiState, action: AnyAction):BaseUiState{
-		switch(action.type){
-    	case "ACTIVATE_UI":
-    		return {...state, uiActive: true}
-    	case "DEACTIVATE_UI":
-    		return {...state, uiActive: false}
-    	default:
-    		return state
-		}
-	}
+  addCallback(callback: Function, args: object) {
+    this.callbacks = [...this.callbacks, { callback: callback, args: args }]
+  }
 
-	addDispatcher(name: string, callback: Function, args?: object){
-		this.dispatchers = { ...this.dispatchers, [name]: callback}
-	}
+  uiActiveReducer(state: BaseUiState = initalBaseUiState, action: AnyAction): BaseUiState {
+    switch (action.type) {
+      case 'ACTIVATE_UI':
+        return { ...state, uiActive: true }
+      case 'DEACTIVATE_UI':
+        return { ...state, uiActive: false }
+      default:
+        return state
+    }
+  }
 
-	getMapDispatchToProps(dispatchers: {[callbackName:string]: Function}) {
-		return (dispatch: Dispatch):{[callbackName:string]:Dispatch} => {
-			let dispatchObj: {[callbackName:string]:Dispatch} = {}
-			for(let callbackName in dispatchers){
-				let callback: Function = dispatchers[callbackName]
-					dispatchObj[callbackName] = ( args ) => dispatch(callback(args))
-			}
-			return dispatchObj
-		}
+  addDispatcher(name: string, callback: Function, args?: object) {
+    this.dispatchers = { ...this.dispatchers, [name]: callback }
+  }
 
-	}
+  getMapDispatchToProps(dispatchers: { [callbackName: string]: Function }) {
+    return (dispatch: Dispatch): { [callbackName: string]: Dispatch } => {
+      let dispatchObj: { [callbackName: string]: Dispatch } = {}
+      for (let callbackName in dispatchers) {
+        let callback: Function = dispatchers[callbackName]
+        dispatchObj[callbackName] = args => dispatch(callback(args))
+      }
+      return dispatchObj
+    }
+  }
 
-	getMapStateToProps(state: GlobalBaseUiState): object{
-		return {uiActive: state.UiActiveState.uiActive}
-	}
+  getMapStateToProps(state: GlobalBaseUiState): object {
+    return { uiActive: state.UiActiveState.uiActive }
+  }
 }
