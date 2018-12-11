@@ -41,11 +41,11 @@ export class BaseView extends React.Component<MinimalPropRequirement, any> {
     if (container instanceof Element) {
       this.container = this.props.container as Element
     } else if (typeof container === 'string') {
-      let selectedElements = document.querySelectorAll(container)
+      const selectedElements = document.querySelectorAll(container)
       if (selectedElements.length === 1) {
         this.container = selectedElements[0]
       } else if (selectedElements.length === 0) {
-        throw Error(
+        throw new Error(
           `The container selector of ${this.name} needs to match exactly one ` +
             `valid html element. The given value of container is ${container} ` +
             `and matches no element.`
@@ -61,7 +61,7 @@ export class BaseView extends React.Component<MinimalPropRequirement, any> {
         this.container = selectedElements[0]
       }
     } else {
-      throw Error(
+      throw new Error(
         `The container of ${this.name} needs to be a querySelector string or ` +
           `a valid html element. The given value is ${container}`
       )
@@ -81,8 +81,8 @@ export class BaseView extends React.Component<MinimalPropRequirement, any> {
   render() {
     return (
       <h1>
-        The element `{this.name}` of class ReduxComponentBaseClass is an abstract class, which is
-        not supposed to be used on its own but subclassed
+        The element `{this.name}` an instance of an abstract class, which is not supposed to be used
+        on its own but subclassed.
       </h1>
     )
   }
@@ -105,7 +105,7 @@ export class BaseView extends React.Component<MinimalPropRequirement, any> {
           `want to do, you can use 'allowDefaultReducerOverwrite=true'`
       )
     } else if (reducerName in this.reducers) {
-      throw Error(
+      throw new Error(
         `The reducerName '${reducerName}' of the ` +
           `element with name '${this.name}', is allready in its reducers.`
       )

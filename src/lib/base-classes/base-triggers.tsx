@@ -4,6 +4,9 @@ import { Reducer, AnyAction, Store, createStore, Dispatch } from 'redux'
 import { connect, Provider } from 'react-redux'
 
 import { MinimalPropRequirement, BaseControl } from './'
+export interface BaseTriggerPropRequirement extends MinimalPropRequirement {
+  changeUiActiveState: (args: { invertedActiveState: boolean }) => void
+}
 
 export class BaseTrigger extends BaseControl {
   componentClass: React.ComponentClass<MinimalPropRequirement, any> = BaseControl
