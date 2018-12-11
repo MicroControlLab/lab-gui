@@ -63,7 +63,7 @@ export class BaseView extends React.Component<MinimalPropRequirement, any> {
     } else {
       throw new Error(
         `The container of ${this.name} needs to be a querySelector string or ` +
-          `a valid html element. The given value is ${container}`
+          `a valid html element. The given value was ${container}.`
       )
     }
   }
