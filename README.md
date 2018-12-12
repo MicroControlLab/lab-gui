@@ -1,15 +1,15 @@
-[![npm latest version](https://img.shields.io/npm/v/lab-ui.svg)](https://www.npmjs.com/package/lab-ui)
-[![Build Status](https://travis-ci.org/MicroControlLab/lab-ui.svg?branch=master)](https://travis-ci.org/MicroControlLab/lab-ui)
-[![Coverage Status](https://coveralls.io/repos/github/MicroControlLab/lab-ui/badge.svg?branch=master)](https://coveralls.io/github/MicroControlLab/lab-ui?branch=master)
-[![Apache 2.0 licensed](https://img.shields.io/hexpm/l/plug.svg)](https://raw.githubusercontent.com/MicroControlLab/lab-ui/master/LICENSE)
-[![Dev Dependencies](https://david-dm.org/MicroControlLab/lab-ui/dev-status.svg)](https://david-dm.org/MicroControlLab/lab-ui?type=dev)
-[![Greenkeeper badge](https://badges.greenkeeper.io/MicroControlLab/lab-ui.svg)](https://greenkeeper.io/)
+[![npm latest version](https://img.shields.io/npm/v/lab-gui.svg)](https://www.npmjs.com/package/lab-gui)
+[![Build Status](https://travis-ci.org/MicroControlLab/lab-gui.svg?branch=master)](https://travis-ci.org/MicroControlLab/lab-gui)
+[![Coverage Status](https://coveralls.io/repos/github/MicroControlLab/lab-gui/badge.svg?branch=master)](https://coveralls.io/github/MicroControlLab/lab-gui?branch=master)
+[![Apache 2.0 licensed](https://img.shields.io/hexpm/l/plug.svg)](https://raw.githubusercontent.com/MicroControlLab/lab-gui/master/LICENSE)
+[![Dev Dependencies](https://david-dm.org/MicroControlLab/lab-gui/dev-status.svg)](https://david-dm.org/MicroControlLab/lab-gui?type=dev)
+[![Greenkeeper badge](https://badges.greenkeeper.io/MicroControlLab/lab-gui.svg)](https://greenkeeper.io/)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![Documentation](https://img.shields.io/badge/docs-gh--pages-brightgreen.svg)](https://microcontrollab.github.io/lab-ui/index.html)
+[![Documentation](https://img.shields.io/badge/docs-gh--pages-brightgreen.svg)](https://microcontrollab.github.io/lab-gui/index.html)
 
-[![NPM](https://nodei.co/npm/lab-ui.png)](https://npmjs.org/package/lab-ui)
+[![NPM](https://nodei.co/npm/lab-gui.png)](https://npmjs.org/package/lab-gui)
 
-# lab-ui
+# lab-gui
 
 React based siplified web UI-building kit to control experiments via websockets
 
@@ -17,7 +17,7 @@ React based siplified web UI-building kit to control experiments via websockets
 
 ## Development
 
-See [Contibuting](https://github.com/MicroControlLab/lab-ui/blob/master/CONTRIBUTING.md)
+See [Contibuting](https://github.com/MicroControlLab/lab-gui/blob/master/CONTRIBUTING.md)
 
 ## Credits
 
