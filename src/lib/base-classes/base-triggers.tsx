@@ -17,7 +17,9 @@ export class BaseTrigger extends BaseControl {
   props: BaseTriggerPropRequirement = {
     container: '',
     name: 'foo',
-    changeUiActiveState: ({ invertedActiveState: boolean }) => {},
+    changeUiActiveState: ({ invertedActiveState }) => {
+      const foo = 1
+    },
     uiActive: false
   }
 
