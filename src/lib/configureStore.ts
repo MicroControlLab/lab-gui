@@ -1,4 +1,11 @@
-import { Store, createStore, applyMiddleware, Reducer, combineReducers } from 'redux'
+import {
+  Store,
+  createStore,
+  applyMiddleware,
+  Reducer,
+  combineReducers,
+  ReducersMapObject
+} from 'redux'
 import { logger } from 'redux-logger'
 // We'll be using Redux Devtools. We can use the `composeWithDevTools()`
 // directive so we can pass our middleware along with it
@@ -6,7 +13,8 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 // If you use react-router, don't forget to pass in your history type.
 
 export default function configureStore(
-  reducers: Reducer<any, any>[],
+  // reducers: Reducer<any, any>[],
+  reducers: ReducersMapObject,
   initialState: any
 ): Store<any> {
   // create the composing function for our middlewares

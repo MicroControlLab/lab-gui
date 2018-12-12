@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom'
 import { Reducer, AnyAction, Store, createStore, Dispatch } from 'redux'
 import { connect, Provider } from 'react-redux'
 
-import { MinimalPropRequirement, BaseUiState } from '.'
+import { MinimalPropRequirement, BaseUiState } from './base-interfaces'
 
 const dummyreducer = (state: any = {}, action: any) => state
 

@@ -3,7 +3,8 @@ import * as ReactDOM from 'react-dom'
 import { Reducer, AnyAction, Store, createStore, Dispatch } from 'redux'
 import { connect, Provider } from 'react-redux'
 
-import { MinimalPropRequirement, BaseView, BaseUiState, GlobalBaseUiState } from './'
+import { MinimalPropRequirement, BaseUiState, GlobalBaseUiState } from './base-interfaces'
+import { BaseView } from './base-views'
 
 const initalBaseUiState: BaseUiState = {
   uiActive: false

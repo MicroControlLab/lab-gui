@@ -3,18 +3,13 @@ import { BaseControl } from './base-control'
 import { Dispatch } from 'redux'
 import { BaseTrigger } from './base-triggers'
 
-export interface MinimalPropRequirement {
-  container: string | Element | null
-  name: string
-  debug?: boolean
-}
+import { MinimalPropRequirement, BaseUiState, GlobalBaseUiState } from './base-interfaces'
 
-export interface BaseUiState {
-  uiActive: boolean
+export {
+  BaseView,
+  BaseControl,
+  BaseTrigger,
+  MinimalPropRequirement,
+  BaseUiState,
+  GlobalBaseUiState
 }
-
-export interface GlobalBaseUiState {
-  UiActiveState: BaseUiState
-}
-
-export { BaseView, BaseControl, BaseTrigger }

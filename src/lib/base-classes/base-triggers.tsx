@@ -3,7 +3,9 @@ import * as ReactDOM from 'react-dom'
 import { Reducer, AnyAction, Store, createStore, Dispatch } from 'redux'
 import { connect, Provider } from 'react-redux'
 
-import { MinimalPropRequirement, BaseControl } from './'
+import { MinimalPropRequirement } from './base-interfaces'
+import { BaseControl } from './base-control'
+
 export interface BaseTriggerPropRequirement extends MinimalPropRequirement {
   changeUiActiveState: (args: { invertedActiveState: boolean }) => void
   uiActive: boolean
