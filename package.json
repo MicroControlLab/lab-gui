@@ -62,8 +62,8 @@
     "extends": ["@commitlint/config-conventional"]
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^8.0.0",
-    "@commitlint/cli": "^8.0.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "@commitlint/cli": "^8.1.0",
     "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
     "@types/parcel-env": "0.0.0",
