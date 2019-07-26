@@ -18,7 +18,7 @@
   "homepage": "https://github.com/MicroControlLab/lab-gui-websocket.git",
   "license": "Apache License 2.0",
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=8.0.0"
   },
   "scripts": {
     "lint": "tslint -t codeFrame -c tslint.json 'src/**/*.{ts,tsx,js}' 'tests/**/*.{ts,tsx,js}'",
