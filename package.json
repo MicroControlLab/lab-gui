@@ -2,11 +2,17 @@
   "name": "lab-gui",
   "version": "1.0.2",
   "description": "UI Framework for controling a lab",
-  "keywords": ["react", "Ui", "typescript"],
+  "keywords": [
+    "react",
+    "Ui",
+    "typescript"
+  ],
   "main": "dist/lab-gui.umd.js",
   "module": "dist/lab-gui.es5.js",
   "typings": "dist/types/lab-gui.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "author": "Sebastian Weigand <s.weigand.phy@gmail.com>",
   "repository": {
     "type": "git",
@@ -33,11 +39,13 @@
     "commit": "git-cz",
     "semantic-release": "semantic-release",
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
-    "precommit": "lint-staged",
     "demo": "parcel demos/demo.html"
   },
   "lint-staged": {
-    "{src,test}/**/*.{ts,tsx,js}": ["prettier --write", "git add"]
+    "{src,test}/**/*.{ts,tsx,js}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "config": {
     "commitizen": {
@@ -50,20 +58,31 @@
     },
     "testEnvironment": "jsdom",
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": ["ts", "tsx", "js"],
-    "coveragePathIgnorePatterns": ["/node_modules/", "/tests/"],
-    "collectCoverageFrom": ["src/*.{js,ts,tsx}"]
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/tests/"
+    ],
+    "collectCoverageFrom": [
+      "src/*.{js,ts,tsx}"
+    ]
   },
   "prettier": {
     "semi": false,
     "singleQuote": true
   },
   "commitlint": {
-    "extends": ["@commitlint/config-conventional"]
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^8.1.0",
     "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
     "@types/jest": "^24.0.15",
     "@types/node": "^12.0.0",
     "@types/parcel-env": "0.0.0",
@@ -85,8 +104,8 @@
     "jest-config": "^24.8.0",
     "lint-staged": "^9.0.0",
     "lodash.camelcase": "^4.3.0",
-    "npm": "^6.5.0",
-    "parcel-bundler": "^1.9.7",
+    "npm": "^6.10.2",
+    "parcel-bundler": "^1.12.3",
     "prettier": "^1.14.3",
     "prompt": "^1.0.0",
     "redux-devtools-extension": "^2.13.5",
@@ -99,7 +118,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-typescript2": "^0.22.0",
-    "semantic-release": "^15.9.16",
+    "semantic-release": "^15.13.19",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.3",
     "tslint": "^5.11.0",
@@ -112,14 +131,19 @@
   "dependencies": {
     "@material-ui/core": "^4.2.1",
     "@material-ui/icons": "^4.2.1",
-    "plotly.js": "^1.42.1",
+    "plotly.js": "^1.49.0",
     "rc-slider": "^8.6.2",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-plotly.js": "^2.2.0",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "react-plotly.js": "^2.3.0",
     "react-redux": "^7.0.0",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "lab-gui-websocket": "^2.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
