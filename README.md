@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/MicroControlLab/lab-gui.svg?branch=master)](https://travis-ci.org/MicroControlLab/lab-gui)
 [![Coverage Status](https://coveralls.io/repos/github/MicroControlLab/lab-gui/badge.svg?branch=master)](https://coveralls.io/github/MicroControlLab/lab-gui?branch=master)
 [![Apache 2.0 licensed](https://img.shields.io/hexpm/l/plug.svg)](https://raw.githubusercontent.com/MicroControlLab/lab-gui/master/LICENSE)
+[![dependencies Status](https://david-dm.org/MicroControlLab/lab-gui/status.svg)](https://david-dm.org/MicroControlLab/lab-gui)
 [![Dev Dependencies](https://david-dm.org/MicroControlLab/lab-gui/dev-status.svg)](https://david-dm.org/MicroControlLab/lab-gui?type=dev)
 [![Greenkeeper badge](https://badges.greenkeeper.io/MicroControlLab/lab-gui.svg)](https://greenkeeper.io/)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
