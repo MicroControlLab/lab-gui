@@ -127,10 +127,7 @@ export class BaseView extends React.Component<MinimalPropRequirement, any> {
 
   getReduxContainer() {
     const mapDispatchToProps = this.getMapDispatchToProps(this.dispatchers)
-    const Container = connect(
-      this.getMapStateToProps,
-      mapDispatchToProps
-    )(this.componentClass)
+    const Container = connect(this.getMapStateToProps, mapDispatchToProps)(this.componentClass)
     return Container
   }
 
