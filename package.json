@@ -102,7 +102,7 @@
     "i": "^0.3.6",
     "jest": "^24.8.0",
     "jest-config": "^24.8.0",
-    "lint-staged": "^9.0.0",
+    "lint-staged": "^10.0.3",
     "lodash.camelcase": "^4.3.0",
     "npm": "^6.10.2",
     "parcel-bundler": "^1.12.3",
