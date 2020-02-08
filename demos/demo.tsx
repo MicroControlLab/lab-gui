@@ -18,7 +18,7 @@ const TestContainer4 = document.querySelector('.test-container4')
 
 const Ui = new UiGenerator()
 
-const start1 = new StartBtn({ container: TestContainer1, name: 'start1' })
+const start1 = new StartBtn({ container: '.test-container', name: 'start1' })
 start1.changeSettings({ text: 'start 1' })
 const start2 = new StartBtn({ container: TestContainer2, name: 'start2' })
 start2.changeSettings({ text: 'start 2' })

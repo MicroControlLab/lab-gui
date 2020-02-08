@@ -7,7 +7,7 @@ import * as ReactDOM from 'react-dom'
 import Button, { ButtonProps } from '@material-ui/core/Button'
 import { Provider } from 'react-redux'
 
-import { MinimalPropRequirement, BaseTrigger } from '../base-classes'
+import { BaseTriggerPropRequirement, BaseTrigger, MinimalPropRequirement } from '../base-classes'
 
 export interface LabUiButtonProps extends MinimalPropRequirement, DefaultButtonProps {
   name: string
@@ -67,7 +67,7 @@ class ReduxButton extends BaseTrigger {
 
   render() {
     this.log('The props at reder time are: ', this.props)
-    const { uiActive, changeUiActiveState } = this.props
+    const { uiActive, changeUiActiveState } = this.props as BaseTriggerPropRequirement
 
     return (
       <Provider store={this.store}>

@@ -56,8 +56,6 @@ export class BaseView extends React.Component<MinimalPropRequirement, any> {
             `valid html element. The given value of container is ${container} ` +
             `and matches:`
         )
-
-        console.log(selectedElements)
         this.container = selectedElements[0]
       }
     } else {
