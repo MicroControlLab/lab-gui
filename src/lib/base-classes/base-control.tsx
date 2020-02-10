@@ -1,6 +1,12 @@
 import { AnyAction, Dispatch } from 'redux'
 
-import { BaseUiState, CallBack, GlobalBaseUiState, MinimalPropRequirement } from './base-interfaces'
+import {
+  BaseControlPropRequirement,
+  BaseUiState,
+  CallBack,
+  GlobalBaseUiState,
+  MinimalPropRequirement
+} from './base-interfaces'
 import { BaseView } from './base-views'
 
 const initalBaseUiState: BaseUiState = {
@@ -9,7 +15,7 @@ const initalBaseUiState: BaseUiState = {
 
 export class BaseControl extends BaseView {
   public readonly componentClass: React.ComponentClass<MinimalPropRequirement, any> = BaseControl
-  public defaultReducerNames: string[] = ['UiActiveState']
+  public defaultReducerNames: string[] = [...this.defaultReducerNames, 'UiActiveState']
   public staticCallbacks: CallBack[] = []
   protected deactivatesUi: boolean = false
 
@@ -57,5 +63,12 @@ export class BaseControl extends BaseView {
       default:
         return state
     }
+  }
+
+  protected cleanState() {
+    const cleanedState = { ...this.state } as BaseControlPropRequirement
+    delete cleanedState.debug
+    delete cleanedState.uiActive
+    return cleanedState
   }
 }

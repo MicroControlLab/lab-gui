@@ -2,7 +2,6 @@ import Button, { ButtonProps } from '@material-ui/core/Button'
 import * as React from 'react'
 /* tslint:disable:no-duplicate-imports */
 import { CSSProperties } from 'react'
-import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
 import { BaseTrigger, BaseTriggerPropRequirement, MinimalPropRequirement } from '../base-classes'
@@ -15,10 +14,6 @@ export interface DefaultButtonProps extends ButtonProps {
   text?: string
   class_names?: string | string[]
   inLineStyles?: CSSProperties
-}
-
-export interface UpdatedLabUiButtonState extends DefaultButtonProps, BaseTriggerPropRequirement {
-  name: string
 }
 
 class ReduxButton extends BaseTrigger {
@@ -54,7 +49,7 @@ class ReduxButton extends BaseTrigger {
   }
 
   public render() {
-    this.debugLog('The props at reder time are: ', this.props)
+    this.debugLog('The props at render time are: ', this.props)
     const { uiActive, changeUiActiveState } = this.props as BaseTriggerPropRequirement
 
     return (
@@ -75,20 +70,9 @@ class ReduxButton extends BaseTrigger {
   }
 
   protected pureButtonProps(): ButtonProps {
-    const stateCopy = { ...this.state } as UpdatedLabUiButtonState
+    const stateCopy = super.cleanState() as DefaultButtonProps
     delete stateCopy.inLineStyles
-    delete stateCopy.debug
-    delete stateCopy.uiActive
-    delete stateCopy.changeUiActiveState
     return stateCopy
-  }
-
-  protected isDisabled(uiActive: boolean): boolean {
-    if ((!this.invertedActiveState && !uiActive) || (this.invertedActiveState && uiActive)) {
-      return true
-    } else {
-      return false
-    }
   }
 
   protected clickCallback(): void {

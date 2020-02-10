@@ -1,12 +1,7 @@
 import { AnyAction } from 'redux'
 
 import { BaseControl } from './base-control'
-import { MinimalPropRequirement } from './base-interfaces'
-
-export interface BaseTriggerPropRequirement extends MinimalPropRequirement {
-  changeUiActiveState: (args: { invertedActiveState: boolean }) => AnyAction
-  uiActive: boolean
-}
+import { BaseTriggerPropRequirement, MinimalPropRequirement } from './base-interfaces'
 
 export class BaseTrigger extends BaseControl {
   public readonly componentClass: React.ComponentClass<MinimalPropRequirement, any> = BaseTrigger
@@ -32,6 +27,20 @@ export class BaseTrigger extends BaseControl {
       return { type: 'REQUEST_STOP_ACTION' }
     } else {
       return { type: 'DEACTIVATE_UI' }
+    }
+  }
+
+  protected cleanState() {
+    const cleanedState = super.cleanState() as BaseTriggerPropRequirement
+    delete cleanedState.changeUiActiveState
+    return cleanedState
+  }
+
+  protected isDisabled(uiActive: boolean): boolean {
+    if ((!this.invertedActiveState && !uiActive) || (this.invertedActiveState && uiActive)) {
+      return true
+    } else {
+      return false
     }
   }
 }
