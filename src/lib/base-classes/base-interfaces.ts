@@ -11,3 +11,8 @@ export interface BaseUiState {
 export interface GlobalBaseUiState {
   UiActiveState: BaseUiState
 }
+
+export interface CallBack {
+  callback: (args: object) => any
+  args: object
+}

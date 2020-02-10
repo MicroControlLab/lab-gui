@@ -1,13 +1,11 @@
-import { Store, Dispatch } from 'redux'
-
+import Button, { ButtonProps } from '@material-ui/core/Button'
 import * as React from 'react'
 /* tslint:disable:no-duplicate-imports */
 import { CSSProperties } from 'react'
 import * as ReactDOM from 'react-dom'
-import Button, { ButtonProps } from '@material-ui/core/Button'
 import { Provider } from 'react-redux'
 
-import { BaseTriggerPropRequirement, BaseTrigger, MinimalPropRequirement } from '../base-classes'
+import { BaseTrigger, BaseTriggerPropRequirement, MinimalPropRequirement } from '../base-classes'
 
 export interface LabUiButtonProps extends MinimalPropRequirement, DefaultButtonProps {
   name: string
@@ -24,63 +22,39 @@ export interface UpdatedLabUiButtonState extends DefaultButtonProps, BaseTrigger
 }
 
 class ReduxButton extends BaseTrigger {
-  componentClass: React.ComponentClass<LabUiButtonProps, any> = ReduxButton
-  defaultState: DefaultButtonProps = {
-    color: 'primary',
-    text: 'button text',
-    class_names: 'button',
+  public readonly componentClass: React.ComponentClass<LabUiButtonProps, any> = ReduxButton
+  public state: DefaultButtonProps = {}
+  protected defaultState: DefaultButtonProps = {
     className: 'button',
-    variant: 'contained',
+    class_names: 'button',
+    color: 'primary',
     inLineStyles: {
       textTransform: 'none'
-    }
+    },
+    text: 'button text',
+    variant: 'contained'
   }
-  state: DefaultButtonProps = {}
 
   constructor(props: LabUiButtonProps) {
     super(props)
-    this.set_init_state()
+    this.setInitState()
   }
 
-  set_init_state(): void {
-    let cleanedProps = this.props as DefaultButtonProps
+  public setInitState(): void {
+    const cleanedProps = this.props as DefaultButtonProps
     this.state = { ...this.defaultState, ...cleanedProps }
   }
 
-  changeInlineStyles(styles: CSSProperties): void {
+  public changeInlineStyles(styles: CSSProperties): void {
     this.state.inLineStyles = { ...this.state.inLineStyles, ...styles }
   }
 
-  changeSettings(updateState: DefaultButtonProps): void {
+  public changeSettings(updateState: DefaultButtonProps): void {
     this.state = { ...this.state, ...updateState }
   }
 
-  is_disabled(uiActive: boolean): boolean {
-    if ((!this.invertedActiveState && !uiActive) || (this.invertedActiveState && uiActive)) {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  clickCallback(): void {
-    for (let callbackObj of this.staticCallbacks) {
-      callbackObj.callback(callbackObj.args)
-    }
-  }
-
-  pureButtonProps(): ButtonProps {
-    const state_copy = { ...this.state } as UpdatedLabUiButtonState
-    delete state_copy.inLineStyles
-    delete state_copy.debug
-    delete state_copy.uiActive
-    delete state_copy.changeUiActiveState
-    return state_copy
-  }
-
-  render() {
-    this.log('The props at reder time are: ', this.props)
-    this.log('The pure props at reder time are: ', this.pureButtonProps())
+  public render() {
+    this.debugLog('The props at reder time are: ', this.props)
     const { uiActive, changeUiActiveState } = this.props as BaseTriggerPropRequirement
 
     return (
@@ -89,38 +63,59 @@ class ReduxButton extends BaseTrigger {
           {...this.pureButtonProps()}
           variant={this.state.variant}
           color={this.state.color}
-          disabled={this.is_disabled(uiActive)}
+          disabled={this.isDisabled(uiActive)}
           className={this.state.className}
           style={this.state.inLineStyles}
-          onClick={() => {
-            this.clickCallback()
-          }}
+          onClick={() => this.clickCallback()}
         >
           {this.state.text}
         </Button>
       </Provider>
     )
   }
+
+  protected pureButtonProps(): ButtonProps {
+    const stateCopy = { ...this.state } as UpdatedLabUiButtonState
+    delete stateCopy.inLineStyles
+    delete stateCopy.debug
+    delete stateCopy.uiActive
+    delete stateCopy.changeUiActiveState
+    return stateCopy
+  }
+
+  protected isDisabled(uiActive: boolean): boolean {
+    if ((!this.invertedActiveState && !uiActive) || (this.invertedActiveState && uiActive)) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  protected clickCallback(): void {
+    for (const callbackObj of this.staticCallbacks) {
+      callbackObj.callback(callbackObj.args)
+    }
+  }
 }
 
 export class StartBtn extends ReduxButton {
-  componentClass = StartBtn
+  public readonly componentClass = StartBtn
 
   constructor(props: LabUiButtonProps) {
     super(props)
     this.defaultState.text = 'Start'
-    this.set_init_state()
+    this.setInitState()
   }
 }
 
 export class StopBtn extends ReduxButton {
-  componentClass = StopBtn
+  public readonly componentClass = StopBtn
 
   constructor(props: LabUiButtonProps) {
     super(props)
     this.defaultState.text = 'Stop'
     this.defaultState.color = 'secondary'
-    this.set_init_state()
+    this.setInitState()
     this.invertedActiveState = true
   }
 }

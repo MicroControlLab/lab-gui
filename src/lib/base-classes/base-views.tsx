@@ -1,9 +1,9 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { Reducer, AnyAction, Store, createStore, Dispatch } from 'redux'
-import { connect, Provider } from 'react-redux'
+import { Provider, connect } from 'react-redux'
+import { AnyAction, Dispatch, Reducer, Store, createStore } from 'redux'
 
-import { MinimalPropRequirement, BaseUiState } from './base-interfaces'
+import { MinimalPropRequirement } from './base-interfaces'
 
 const dummyreducer = (state: any = {}, action: any) => state
 
@@ -12,18 +12,16 @@ interface DispatchObjectState {
 }
 
 export class BaseView extends React.Component<MinimalPropRequirement, any> {
-  componentClass: React.ComponentClass<MinimalPropRequirement, any> = BaseView
-
-  name: string = 'pure ReduxComponentBaseClass'
-  container: Element | null = null
-  debug: boolean = false
-  reducers: { [reducerName: string]: Reducer } = {}
-  defaultReducerNames: string[] = []
-  invertedActiveState: boolean = false
-  deactivatesUi: boolean = false
-  uiActive: boolean = false
-  store: Store
-  dispatchers: { [callbackName: string]: Function } = {}
+  public readonly componentClass: React.ComponentClass<MinimalPropRequirement, any> = BaseView
+  public readonly name: string = 'pure ReduxComponentBaseClass'
+  public readonly debug: boolean = false
+  public readonly reducers: { [reducerName: string]: Reducer } = {}
+  public invertedActiveState: boolean = false
+  public uiActive: boolean = false
+  public store: Store
+  public defaultReducerNames: string[] = []
+  protected container: Element | null = null
+  protected dispatchers: { [callbackName: string]: (args: any) => AnyAction } = {}
 
   constructor(props: MinimalPropRequirement) {
     super(props)
@@ -32,41 +30,12 @@ export class BaseView extends React.Component<MinimalPropRequirement, any> {
     if (props.debug) {
       this.debug = props.debug
     }
-    this.validate_container(props.container)
-    // this initialisation of store just exists to satisfy TS lint
+    this.validateContainer(props.container)
+    // this initialization of store just exists to satisfy TS lint
     this.store = createStore(dummyreducer)
   }
 
-  validate_container(container: MinimalPropRequirement['container']) {
-    if (container instanceof Element) {
-      this.container = this.props.container as Element
-    } else if (typeof container === 'string') {
-      const selectedElements = document.querySelectorAll(container)
-      if (selectedElements.length === 1) {
-        this.container = selectedElements[0]
-      } else if (selectedElements.length === 0) {
-        throw new Error(
-          `The container selector of ${this.name} needs to match exactly one ` +
-            `valid html element. The given value of container is ${container} ` +
-            `and matches no element.`
-        )
-      } else {
-        console.warn(
-          `The container selector of ${this.name} needs to match exactly one ` +
-            `valid html element. The given value of container is ${container} ` +
-            `and matches:`
-        )
-        this.container = selectedElements[0]
-      }
-    } else {
-      throw new Error(
-        `The container of ${this.name} needs to be a querySelector string or ` +
-          `a valid html element. The given value was ${container}.`
-      )
-    }
-  }
-
-  show(): void {
+  public show(): void {
     const Container = this.getReduxContainer()
     ReactDOM.render(
       <Provider store={this.store}>
@@ -76,7 +45,7 @@ export class BaseView extends React.Component<MinimalPropRequirement, any> {
     )
   }
 
-  render() {
+  public render() {
     return (
       <h1>
         The element `{this.name}` an instance of an abstract class, which is not supposed to be used
@@ -85,17 +54,17 @@ export class BaseView extends React.Component<MinimalPropRequirement, any> {
     )
   }
 
-  setStore(store: Store) {
+  public setStore(store: Store) {
     this.store = store
   }
 
-  addReducer(
+  public addReducer(
     reducerName: string,
     reducer: Reducer,
     allowDefaultReducerOverwrite: boolean = false
   ): void {
     if (this.defaultReducerNames.indexOf(reducerName) > -1 && !allowDefaultReducerOverwrite) {
-      console.warn(
+      this.warn(
         `The reducerName '${reducerName}', in the ` +
           `element with name '${this.name}' is part of the ` +
           `default reducers of that class. Changing it could lead to ` +
@@ -111,29 +80,70 @@ export class BaseView extends React.Component<MinimalPropRequirement, any> {
     this.reducers[reducerName] = reducer
   }
 
-  getReducers(): { [reducerName: string]: Reducer } {
+  public getReducers(): { [reducerName: string]: Reducer } {
     return this.reducers
   }
 
-  getMapStateToProps(state: any): object {
+  public getMapStateToProps(state: any): object {
     return {}
   }
 
-  getMapDispatchToProps(dispatchers: { [callbackName: string]: Function }) {
+  public getMapDispatchToProps(dispatchers: { [callbackName: string]: (args: any) => AnyAction }) {
     return {}
   }
 
-  getReduxContainer() {
+  public getReduxContainer() {
     const mapDispatchToProps = this.getMapDispatchToProps(this.dispatchers)
     const Container = connect(this.getMapStateToProps, mapDispatchToProps)(this.componentClass)
     return Container
   }
 
-  log(...args: any[]) {
+  public debugLog(...args: any[]) {
     if (this.debug) {
-      console.warn('Debug message from the element with name: ', this.name)
-      console.log('The Attributes of this instance are: ', this)
-      console.log(...args)
+      if (process.env.NODE_ENV !== 'production') {
+        /* tslint:disable-next-line:no-console */
+        console.warn('Debug message from the element with name: ', this.name)
+        /* tslint:disable-next-line:no-console */
+        console.log('The Attributes of this instance are: ', this)
+        /* tslint:disable-next-line:no-console */
+        console.log(...args)
+      }
+    }
+  }
+
+  public warn(...args: any[]) {
+    if (process.env.NODE_ENV !== 'production') {
+      /* tslint:disable-next-line:no-console */
+      console.warn(...args)
+    }
+  }
+
+  protected validateContainer(container: MinimalPropRequirement['container']) {
+    if (container instanceof Element) {
+      this.container = this.props.container as Element
+    } else if (typeof container === 'string') {
+      const selectedElements = document.querySelectorAll(container)
+      if (selectedElements.length === 1) {
+        this.container = selectedElements[0]
+      } else if (selectedElements.length === 0) {
+        throw new Error(
+          `The container selector of ${this.name} needs to match exactly one ` +
+            `valid html element. The given value of container is ${container} ` +
+            `and matches no element.`
+        )
+      } else {
+        this.warn(
+          `The container selector of ${this.name} needs to match exactly one ` +
+            `valid html element. The given value of container is ${container} ` +
+            `and matches:`
+        )
+        this.container = selectedElements[0]
+      }
+    } else {
+      throw new Error(
+        `The container of ${this.name} needs to be a querySelector string or ` +
+          `a valid html element. The given value was ${container}.`
+      )
     }
   }
 }

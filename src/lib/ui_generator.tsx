@@ -1,7 +1,8 @@
-import { BaseView } from './base-classes'
-import { createStore, applyMiddleware, combineReducers, Reducer, AnyAction, Store } from 'redux'
-import { logger } from 'redux-logger'
+import { Reducer, Store, applyMiddleware, combineReducers, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import { logger } from 'redux-logger'
+
+import { BaseView } from './base-classes'
 
 export class UiGenerator {
   private store: Store | null = null
@@ -9,23 +10,26 @@ export class UiGenerator {
   private elementNameList: string[] = []
   private reducers: { [reducerName: string]: Reducer } = {}
 
-  add_element(element: BaseView) {
+  public addElement(element: BaseView) {
     if (!(this.elementNameList.indexOf(element.name) > -1)) {
       this.elementNameList = [...this.elementNameList, element.name]
       this.elementList = [...this.elementList, element]
     } else {
-      console.warn(
-        `A component with name '${element.name}' already exists, ` +
-          `which is why the second component with name '${element.name}' wasn't added.` +
-          `If you want to add the component, choose a different name.`
-      )
+      if (process.env.NODE_ENV !== 'production') {
+        /* tslint:disable:no-console */
+        console.warn(
+          `A component with name '${element.name}' already exists, ` +
+            `which is why the second component with name '${element.name}' wasn't added.` +
+            `If you want to add the component, choose a different name.`
+        )
+      }
     }
   }
 
-  get_reducers(): void {
-    for (let element of this.elementList) {
+  public getReducers(): void {
+    for (const element of this.elementList) {
       const reducers = element.getReducers()
-      for (let reducerName in reducers) {
+      for (const reducerName in reducers) {
         if (
           reducerName in this.reducers &&
           !(element.defaultReducerNames.indexOf(reducerName) > -1)
@@ -41,7 +45,7 @@ export class UiGenerator {
     }
   }
 
-  get_store() {
+  public getStore() {
     if (this.store) {
       return this.store
     } else {
@@ -52,29 +56,34 @@ export class UiGenerator {
     }
   }
 
-  private configureStore(preloadedState = {}): Store {
-    const middlewares = [logger]
-    const middlewareEnhancer = applyMiddleware(...middlewares)
-    const composeEnhancers = composeWithDevTools({})
-    const composedEnhancers = composeEnhancers(middlewareEnhancer)
-    const store = createStore(combineReducers(this.reducers), preloadedState, composedEnhancers)
-
-    // allows hotswap for reducers
-    if (process.env.NODE_ENV !== 'production' && module.hot) {
-      module.hot.accept('./src', () => {
-        store.replaceReducer(combineReducers(this.reducers))
-      })
-    }
-    this.store = store
-    return store
-  }
-
-  show() {
-    this.get_reducers()
+  public show() {
+    this.getReducers()
     const store = this.configureStore()
-    for (let element of this.elementList) {
+    for (const element of this.elementList) {
       element.setStore(store)
       element.show()
     }
+  }
+
+  private configureStore(preloadedState = {}): Store {
+    let store: Store
+    if (process.env.NODE_ENV !== 'production') {
+      const middlewares = [logger]
+      const middlewareEnhancer = applyMiddleware(...middlewares)
+      const composeEnhancers = composeWithDevTools({})
+      const composedEnhancers = composeEnhancers(middlewareEnhancer)
+      store = createStore(combineReducers(this.reducers), preloadedState, composedEnhancers)
+
+      // allows hotswap for reducers
+      if (module.hot) {
+        module.hot.accept('./src', () => {
+          store.replaceReducer(combineReducers(this.reducers))
+        })
+      }
+    } else {
+      store = createStore(combineReducers(this.reducers), preloadedState)
+    }
+    this.store = store
+    return store
   }
 }

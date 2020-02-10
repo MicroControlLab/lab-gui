@@ -1,9 +1,8 @@
-import { BaseView } from './base-views'
 import { BaseControl } from './base-control'
-import { Dispatch } from 'redux'
 import { BaseTrigger, BaseTriggerPropRequirement } from './base-triggers'
+import { BaseView } from './base-views'
 
-import { MinimalPropRequirement, BaseUiState, GlobalBaseUiState } from './base-interfaces'
+import { BaseUiState, GlobalBaseUiState, MinimalPropRequirement } from './base-interfaces'
 
 export {
   BaseView,

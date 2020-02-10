@@ -1,9 +1,6 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import { Reducer, AnyAction, Store, createStore, Dispatch } from 'redux'
-import { connect, Provider } from 'react-redux'
+import { AnyAction, Dispatch } from 'redux'
 
-import { MinimalPropRequirement, BaseUiState, GlobalBaseUiState } from './base-interfaces'
+import { BaseUiState, CallBack, GlobalBaseUiState, MinimalPropRequirement } from './base-interfaces'
 import { BaseView } from './base-views'
 
 const initalBaseUiState: BaseUiState = {
@@ -11,20 +8,47 @@ const initalBaseUiState: BaseUiState = {
 }
 
 export class BaseControl extends BaseView {
-  componentClass: React.ComponentClass<MinimalPropRequirement, any> = BaseControl
-  defaultReducerNames: string[] = ['UiActiveState']
-  staticCallbacks: { callback: Function; args: object }[] = []
+  public readonly componentClass: React.ComponentClass<MinimalPropRequirement, any> = BaseControl
+  public defaultReducerNames: string[] = ['UiActiveState']
+  public staticCallbacks: CallBack[] = []
+  protected deactivatesUi: boolean = false
 
   constructor(props: MinimalPropRequirement) {
     super(props)
     this.addReducer('UiActiveState', this.uiActiveReducer, true)
   }
 
-  addStaticCallback(callback: Function, args: object) {
-    this.staticCallbacks = [...this.staticCallbacks, { callback: callback, args: args }]
+  public addStaticCallback(callback: (args: any) => any, args: any): void {
+    this.staticCallbacks = [...this.staticCallbacks, { callback, args }]
   }
 
-  uiActiveReducer(state: BaseUiState = initalBaseUiState, action: AnyAction): BaseUiState {
+  public addDispatcher(name: string, callback: (args: any) => AnyAction): void {
+    this.dispatchers = { ...this.dispatchers, [name]: callback }
+  }
+
+  public getMapDispatchToProps(dispatchers: {
+    [callbackName: string]: (args: object) => AnyAction
+  }) {
+    return (dispatch: Dispatch): { [callbackName: string]: (args: any) => AnyAction } => {
+      const dispatchObj: { [callbackName: string]: (args: any) => AnyAction } = {}
+      for (const callbackName in dispatchers) {
+        if (dispatchers.hasOwnProperty(callbackName)) {
+          const callback: (args: any) => AnyAction = dispatchers[callbackName]
+          dispatchObj[callbackName] = (args: any) => dispatch(callback(args))
+        }
+      }
+      return dispatchObj
+    }
+  }
+
+  public getMapStateToProps(state: GlobalBaseUiState): object {
+    return { uiActive: state.UiActiveState.uiActive }
+  }
+
+  protected uiActiveReducer(
+    state: BaseUiState = initalBaseUiState,
+    action: AnyAction
+  ): BaseUiState {
     switch (action.type) {
       case 'ACTIVATE_UI':
         return { ...state, uiActive: true }
@@ -33,24 +57,5 @@ export class BaseControl extends BaseView {
       default:
         return state
     }
-  }
-
-  addDispatcher(name: string, callback: Function, args?: object) {
-    this.dispatchers = { ...this.dispatchers, [name]: callback }
-  }
-
-  getMapDispatchToProps(dispatchers: { [callbackName: string]: Function }) {
-    return (dispatch: Dispatch): { [callbackName: string]: Dispatch } => {
-      let dispatchObj: { [callbackName: string]: Dispatch } = {}
-      for (let callbackName in dispatchers) {
-        let callback: Function = dispatchers[callbackName]
-        dispatchObj[callbackName] = args => dispatch(callback(args))
-      }
-      return dispatchObj
-    }
-  }
-
-  getMapStateToProps(state: GlobalBaseUiState): object {
-    return { uiActive: state.UiActiveState.uiActive }
   }
 }
