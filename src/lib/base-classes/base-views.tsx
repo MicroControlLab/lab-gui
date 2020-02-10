@@ -3,12 +3,21 @@ import ReactDOM from 'react-dom'
 import { Provider, connect } from 'react-redux'
 import { AnyAction, Dispatch, Reducer, Store, createStore } from 'redux'
 
-import { MinimalPropRequirement } from './base-interfaces'
+import {
+  BaseUiState,
+  DataAction,
+  GlobalBaseUiState,
+  MinimalPropRequirement
+} from './base-interfaces'
 
 const dummyreducer = (state: any = {}, action: any) => state
 
 interface DispatchObjectState {
   dispatchObj: { [callbackName: string]: Dispatch }
+}
+
+const initalBaseUiState: BaseUiState = {
+  uiActive: false
 }
 
 export class BaseView extends React.Component<MinimalPropRequirement, any> {
@@ -19,20 +28,24 @@ export class BaseView extends React.Component<MinimalPropRequirement, any> {
   public invertedActiveState: boolean = false
   public uiActive: boolean = false
   public store: Store
-  public defaultReducerNames: string[] = []
-  protected container: Element | null = null
-  protected dispatchers: { [callbackName: string]: (args: any) => AnyAction } = {}
+  public defaultReducerNames: string[] = ['UiActiveState', 'data']
+  public readonly hasData = true
+  public readonly dataActionType: string
+  protected containerElement: Element | null = null
+  protected dispatchers: { [callbackName: string]: () => AnyAction } = {}
 
   constructor(props: MinimalPropRequirement) {
     super(props)
     this.state = { dispatchObj: {} }
     this.name = props.name
+    this.dataActionType = this.name.toUpperCase()
     if (props.debug) {
       this.debug = props.debug
     }
     this.validateContainer(props.container)
     // this initialization of store just exists to satisfy TS lint
     this.store = createStore(dummyreducer)
+    this.addReducer('UiActiveState', this.uiActiveReducer, true)
   }
 
   public show(): void {
@@ -41,7 +54,7 @@ export class BaseView extends React.Component<MinimalPropRequirement, any> {
       <Provider store={this.store}>
         <Container {...this.props} {...this.state} />
       </Provider>,
-      this.container
+      this.containerElement
     )
   }
 
@@ -68,13 +81,13 @@ export class BaseView extends React.Component<MinimalPropRequirement, any> {
         `The reducerName '${reducerName}', in the ` +
           `element with name '${this.name}' is part of the ` +
           `default reducers of that class. Changing it could lead to ` +
-          `unexpected behaviour. If you are absoulutly sure this is what you ` +
+          `unexpected behavior. If you are absolutely sure this is what you ` +
           `want to do, you can use 'allowDefaultReducerOverwrite=true'`
       )
     } else if (reducerName in this.reducers) {
       throw new Error(
         `The reducerName '${reducerName}' of the ` +
-          `element with name '${this.name}', is allready in its reducers.`
+          `element with name '${this.name}', is already in its reducers.`
       )
     }
     this.reducers[reducerName] = reducer
@@ -84,17 +97,28 @@ export class BaseView extends React.Component<MinimalPropRequirement, any> {
     return this.reducers
   }
 
-  public getMapStateToProps(state: any): object {
-    return {}
+  public mapStateToProps(state: GlobalBaseUiState): BaseUiState {
+    return { uiActive: state.UiActiveState.uiActive }
   }
 
-  public getMapDispatchToProps(dispatchers: { [callbackName: string]: (args: any) => AnyAction }) {
-    return {}
+  public getMapDispatchToProps() {
+    let dispatchObj = {}
+    const dispatchers = this.dispatchers
+    const totalDispatcher = (dispatch: Dispatch) => {
+      for (const callbackName in dispatchers) {
+        if (dispatchers.hasOwnProperty(callbackName)) {
+          const callback: () => AnyAction = dispatchers[callbackName]
+          dispatchObj = { ...dispatchObj, [callbackName]: dispatch(callback()) }
+        }
+      }
+      return dispatchObj
+    }
+    return totalDispatcher
   }
 
   public getReduxContainer() {
-    const mapDispatchToProps = this.getMapDispatchToProps(this.dispatchers)
-    const Container = connect(this.getMapStateToProps, mapDispatchToProps)(this.componentClass)
+    const mapDispatchToProps = this.getMapDispatchToProps()
+    const Container = connect(this.mapStateToProps, mapDispatchToProps)(this.componentClass)
     return Container
   }
 
@@ -118,13 +142,20 @@ export class BaseView extends React.Component<MinimalPropRequirement, any> {
     }
   }
 
+  public setData(data: any): void {
+    this.store.dispatch({
+      data,
+      type: this.dataActionType
+    })
+  }
+
   protected validateContainer(container: MinimalPropRequirement['container']) {
     if (container instanceof Element) {
-      this.container = this.props.container as Element
+      this.containerElement = this.props.container as Element
     } else if (typeof container === 'string') {
       const selectedElements = document.querySelectorAll(container)
       if (selectedElements.length === 1) {
-        this.container = selectedElements[0]
+        this.containerElement = selectedElements[0]
       } else if (selectedElements.length === 0) {
         throw new Error(
           `The container selector of ${this.name} needs to match exactly one ` +
@@ -137,13 +168,27 @@ export class BaseView extends React.Component<MinimalPropRequirement, any> {
             `valid html element. The given value of container is ${container} ` +
             `and matches:`
         )
-        this.container = selectedElements[0]
+        this.containerElement = selectedElements[0]
       }
     } else {
       throw new Error(
         `The container of ${this.name} needs to be a querySelector string or ` +
           `a valid html element. The given value was ${container}.`
       )
+    }
+  }
+
+  protected uiActiveReducer(
+    state: BaseUiState = initalBaseUiState,
+    action: AnyAction
+  ): BaseUiState {
+    switch (action.type) {
+      case 'ACTIVATE_UI':
+        return { ...state, uiActive: true }
+      case 'DEACTIVATE_UI':
+        return { ...state, uiActive: false }
+      default:
+        return state
     }
   }
 }

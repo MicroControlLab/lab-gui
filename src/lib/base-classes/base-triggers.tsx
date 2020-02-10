@@ -9,20 +9,22 @@ export class BaseTrigger extends BaseControl {
 
   constructor(props: MinimalPropRequirement) {
     super(props)
-    this.addDispatcher('changeUiActiveState', this.uiActiveAction)
+    this.addCallback(this.uiActiveAction)
   }
 
-  public componentDidMount() {
-    if (this.deactivatesUi === true) {
-      const updatedProps = this.props as BaseTriggerPropRequirement
-      this.addStaticCallback(updatedProps.changeUiActiveState, {
-        invertedActiveState: this.invertedActiveState
-      })
-    }
-  }
+  // public componentDidMount() {
+  //   if (this.deactivatesUi === true) {
+  //     const uiActiveAction = this.getUiActiveAction({
+  //       invertedActiveState: this.invertedActiveState
+  //     })
+  //     this.addDispatcher('changeUiActiveState', uiActiveAction)
+  //     const updatedProps = this.props as BaseTriggerPropRequirement
+  //     this.addStaticCallback(updatedProps.changeUiActiveState)
+  //   }
+  // }
 
-  protected uiActiveAction(args: { invertedActiveState: boolean }): AnyAction {
-    if (args.invertedActiveState) {
+  protected uiActiveAction = (self: BaseTrigger): AnyAction => {
+    if (self.invertedActiveState) {
       return { type: 'ACTIVATE_UI' }
       return { type: 'REQUEST_STOP_ACTION' }
     } else {

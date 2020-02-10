@@ -47,5 +47,10 @@ const store = Ui.getStore()
 
 setTimeout(() => {
   console.log('auto actived UI')
-  return store.dispatch({ type: 'ACTIVATE_UI' })
+  console.log('STORE STATE', store.getState())
+  store.dispatch({ type: 'ACTIVATE_UI' })
+  console.log(stop.getReducers())
+  stop.setData('BAR')
+  stop.setData('Blub')
+  start1.setData('Foo')
 }, 2000)

@@ -59,7 +59,7 @@ class ReduxButton extends BaseTrigger {
           disabled={this.isDisabled(uiActive)}
           className={this.state.className}
           style={this.state.inLineStyles}
-          onClick={() => this.clickCallback()}
+          onClick={() => this.clickCallback(this)}
         >
           {this.state.text}
         </Button>
@@ -73,9 +73,11 @@ class ReduxButton extends BaseTrigger {
     return stateCopy
   }
 
-  protected clickCallback(): void {
-    for (const callbackObj of this.staticCallbacks) {
-      callbackObj.callback(callbackObj.args)
+  protected clickCallback(self: ReduxButton): void {
+    console.log('self', self)
+    console.log('this', this)
+    for (const callback of this.callbacks) {
+      callback(self)
     }
   }
 }

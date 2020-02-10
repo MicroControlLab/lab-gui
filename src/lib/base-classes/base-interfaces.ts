@@ -1,4 +1,4 @@
-import { AnyAction } from 'redux'
+import { Action, AnyAction } from 'redux'
 
 export interface MinimalPropRequirement {
   container: string | Element | null
@@ -11,7 +11,7 @@ export interface BaseControlPropRequirement extends MinimalPropRequirement {
 }
 
 export interface BaseTriggerPropRequirement extends BaseControlPropRequirement {
-  changeUiActiveState: (args: { invertedActiveState: boolean }) => AnyAction
+  changeUiActiveState: () => AnyAction
 }
 
 export interface BaseUiState {
@@ -22,7 +22,6 @@ export interface GlobalBaseUiState {
   UiActiveState: BaseUiState
 }
 
-export interface CallBack {
-  callback: (args: object) => any
-  args: object
+export interface DataAction extends Action {
+  data: any
 }
