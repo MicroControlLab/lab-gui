@@ -1,12 +1,9 @@
-import { StartBtn, StopBtn } from '../src/lib/buttons/button'
-import { UiGenerator } from '../src/lib/ui_generator'
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import DeleteIcon from '@material-ui/icons/Delete'
+import React from 'react'
 
-import { Reducer, AnyAction } from 'redux'
-
+import { StartBtn, StopBtn } from '../src/lib/buttons'
+import { UiGenerator } from '../src/lib/ui_generator'
 // start.class_names = ["test1", "test2"]
 
 const initialState = {

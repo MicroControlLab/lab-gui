@@ -1,7 +1,5 @@
 import Button, { ButtonProps } from '@material-ui/core/Button'
-import * as React from 'react'
-/* tslint:disable:no-duplicate-imports */
-import { CSSProperties } from 'react'
+import React, { CSSProperties } from 'react'
 import { Provider } from 'react-redux'
 
 import { BaseTrigger, BaseTriggerPropRequirement, MinimalPropRequirement } from '../base-classes'
