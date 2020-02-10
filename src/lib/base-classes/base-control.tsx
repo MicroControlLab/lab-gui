@@ -13,15 +13,15 @@ const initalBaseUiState: BaseUiState = {
 export class BaseControl extends BaseView {
   componentClass: React.ComponentClass<MinimalPropRequirement, any> = BaseControl
   defaultReducerNames: string[] = ['UiActiveState']
-  callbacks: { callback: Function; args: object }[] = []
+  staticCallbacks: { callback: Function; args: object }[] = []
 
   constructor(props: MinimalPropRequirement) {
     super(props)
-    this.reducers['UiActiveState'] = this.uiActiveReducer
+    this.addReducer('UiActiveState', this.uiActiveReducer, true)
   }
 
-  addCallback(callback: Function, args: object) {
-    this.callbacks = [...this.callbacks, { callback: callback, args: args }]
+  addStaticCallback(callback: Function, args: object) {
+    this.staticCallbacks = [...this.staticCallbacks, { callback: callback, args: args }]
   }
 
   uiActiveReducer(state: BaseUiState = initalBaseUiState, action: AnyAction): BaseUiState {

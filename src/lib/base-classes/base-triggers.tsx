@@ -20,10 +20,12 @@ export class BaseTrigger extends BaseControl {
     this.addDispatcher('changeUiActiveState', this.uiActiveAction)
   }
   componentDidMount() {
-    const updatedProps = this.props as BaseTriggerPropRequirement
-    this.addCallback(updatedProps.changeUiActiveState, {
-      invertedActiveState: this.invertedActiveState
-    })
+    if (this.deactivatesUi === true) {
+      const updatedProps = this.props as BaseTriggerPropRequirement
+      this.addStaticCallback(updatedProps.changeUiActiveState, {
+        invertedActiveState: this.invertedActiveState
+      })
+    }
   }
 
   uiActiveAction(args: { invertedActiveState: boolean }): AnyAction {

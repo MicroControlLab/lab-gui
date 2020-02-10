@@ -19,6 +19,10 @@ export interface DefaultButtonProps extends ButtonProps {
   inLineStyles?: CSSProperties
 }
 
+export interface UpdatedLabUiButtonState extends DefaultButtonProps, BaseTriggerPropRequirement {
+  name: string
+}
+
 class ReduxButton extends BaseTrigger {
   componentClass: React.ComponentClass<LabUiButtonProps, any> = ReduxButton
   defaultState: DefaultButtonProps = {
@@ -52,7 +56,7 @@ class ReduxButton extends BaseTrigger {
   }
 
   is_disabled(uiActive: boolean): boolean {
-    if ((this.deactivatesUi && !uiActive) || (!this.deactivatesUi && uiActive)) {
+    if ((!this.invertedActiveState && !uiActive) || (this.invertedActiveState && uiActive)) {
       return true
     } else {
       return false
@@ -60,18 +64,29 @@ class ReduxButton extends BaseTrigger {
   }
 
   clickCallback(): void {
-    for (let callbackObj of this.callbacks) {
+    for (let callbackObj of this.staticCallbacks) {
       callbackObj.callback(callbackObj.args)
     }
   }
 
+  pureButtonProps(): ButtonProps {
+    const state_copy = { ...this.state } as UpdatedLabUiButtonState
+    delete state_copy.inLineStyles
+    delete state_copy.debug
+    delete state_copy.uiActive
+    delete state_copy.changeUiActiveState
+    return state_copy
+  }
+
   render() {
     this.log('The props at reder time are: ', this.props)
+    this.log('The pure props at reder time are: ', this.pureButtonProps())
     const { uiActive, changeUiActiveState } = this.props as BaseTriggerPropRequirement
 
     return (
       <Provider store={this.store}>
         <Button
+          {...this.pureButtonProps()}
           variant={this.state.variant}
           color={this.state.color}
           disabled={this.is_disabled(uiActive)}
@@ -106,7 +121,6 @@ export class StopBtn extends ReduxButton {
     this.defaultState.text = 'Stop'
     this.defaultState.color = 'secondary'
     this.set_init_state()
-    this.deactivatesUi = false
     this.invertedActiveState = true
   }
 }

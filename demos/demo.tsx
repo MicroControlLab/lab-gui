@@ -2,6 +2,8 @@ import { StartBtn, StopBtn } from '../src/lib/buttons/button'
 import { UiGenerator } from '../src/lib/ui_generator'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import CloudUploadIcon from '@material-ui/icons/CloudUpload'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 import { Reducer, AnyAction } from 'redux'
 
@@ -20,10 +22,15 @@ const Ui = new UiGenerator()
 
 const start1 = new StartBtn({ container: '.test-container', name: 'start1' })
 start1.changeSettings({ text: 'start 1' })
-const start2 = new StartBtn({ container: TestContainer2, name: 'start2' })
-start2.changeSettings({ text: 'start 2' })
+const start2 = new StartBtn({
+  container: TestContainer2,
+  name: 'start2',
+  text: 'FOOOOOOO',
+  debug: true
+})
+start2.changeSettings({ text: 'start 2', startIcon: <CloudUploadIcon /> })
 const start3 = new StartBtn({ container: TestContainer3, name: 'start3' })
-start3.changeSettings({ text: 'start 3' })
+start3.changeSettings({ text: 'start 3', endIcon: <DeleteIcon /> })
 const stop = new StopBtn({
   container: TestContainer4,
   name: 'stop',
@@ -37,6 +44,8 @@ Ui.add_element(start2)
 Ui.add_element(start3)
 Ui.add_element(stop)
 Ui.show()
+
+// start1.
 
 const store = Ui.get_store()
 

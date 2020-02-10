@@ -4,12 +4,22 @@ import { logger } from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 export class UiGenerator {
-  store: Store | null = null
-  elementList: BaseView[] = []
-  reducers: { [reducerName: string]: Reducer } = {}
+  private store: Store | null = null
+  private elementList: BaseView[] = []
+  private elementNameList: string[] = []
+  private reducers: { [reducerName: string]: Reducer } = {}
 
-  add_element(element: any) {
-    this.elementList = [...this.elementList, element]
+  add_element(element: BaseView) {
+    if (!(this.elementNameList.indexOf(element.name) > -1)) {
+      this.elementNameList = [...this.elementNameList, element.name]
+      this.elementList = [...this.elementList, element]
+    } else {
+      console.warn(
+        `A component with name '${element.name}' already exists, ` +
+          `which is why the second component with name '${element.name}' wasn't added.` +
+          `If you want to add the component, choose a different name.`
+      )
+    }
   }
 
   get_reducers(): void {
@@ -42,7 +52,7 @@ export class UiGenerator {
     }
   }
 
-  configureStore(preloadedState = {}): Store {
+  private configureStore(preloadedState = {}): Store {
     const middlewares = [logger]
     const middlewareEnhancer = applyMiddleware(...middlewares)
     const composeEnhancers = composeWithDevTools({})
