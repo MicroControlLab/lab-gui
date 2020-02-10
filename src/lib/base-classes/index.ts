@@ -1,22 +1,11 @@
-import { BaseControl } from './base-control'
-import { BaseTrigger } from './base-triggers'
-import { BaseView } from './base-views'
+export { BaseControl } from './base-control'
+export { BaseTrigger } from './base-triggers'
+export { BaseView } from './base-views'
 
-import {
+export {
   BaseControlPropRequirement,
   BaseTriggerPropRequirement,
   BaseUiState,
   GlobalBaseUiState,
   MinimalPropRequirement
 } from './base-interfaces'
-
-export {
-  BaseView,
-  BaseControl,
-  BaseControlPropRequirement,
-  BaseTrigger,
-  BaseTriggerPropRequirement,
-  MinimalPropRequirement,
-  BaseUiState,
-  GlobalBaseUiState
-}

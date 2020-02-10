@@ -1,3 +1,1 @@
-import { StartBtn, StopBtn } from './button'
-
-export { StartBtn, StopBtn }
+export { StartBtn, StopBtn } from './button'
