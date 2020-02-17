@@ -1,6 +1,6 @@
 {
   "name": "lab-gui",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "UI Framework for controling a lab",
   "keywords": [
     "react",
@@ -24,7 +24,7 @@
   "homepage": "https://github.com/MicroControlLab/lab-gui-websocket.git",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
   },
   "scripts": {
     "lint": "tslint -t codeFrame -c tslint.json 'src/**/*.{ts,tsx,js}' 'tests/**/*.{ts,tsx,js}'",
@@ -104,8 +104,8 @@
     "jest-config": "^25.1.0",
     "lint-staged": "^10.0.3",
     "lodash.camelcase": "^4.3.0",
-    "npm": "^6.10.2",
-    "parcel-bundler": "^1.12.3",
+    "npm": "^6.13.7",
+    "parcel-bundler": "^1.12.4",
     "prettier": "^1.14.3",
     "prompt": "^1.0.0",
     "replace-in-file": "^5.0.2",
