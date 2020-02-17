@@ -2,7 +2,11 @@ import Button, { ButtonProps } from '@material-ui/core/Button'
 import React, { CSSProperties } from 'react'
 import { Provider } from 'react-redux'
 
-import { BaseTrigger, BaseTriggerPropRequirement, MinimalPropRequirement } from '../base-classes'
+import {
+  AbstractTrigger,
+  AbstractTriggerPropRequirement,
+  MinimalPropRequirement
+} from '../abstract-classes'
 
 export interface LabUiButtonProps extends MinimalPropRequirement, DefaultButtonProps {
   name: string
@@ -14,7 +18,7 @@ export interface DefaultButtonProps extends ButtonProps {
   inLineStyles?: CSSProperties
 }
 
-class ReduxButton extends BaseTrigger {
+class ReduxButton extends AbstractTrigger {
   public readonly componentClass: React.ComponentClass<LabUiButtonProps, any> = ReduxButton
   public state: DefaultButtonProps = {}
   protected defaultState: DefaultButtonProps = {
@@ -48,7 +52,7 @@ class ReduxButton extends BaseTrigger {
 
   public render() {
     this.debugLog('The props at render time are: ', this.props)
-    const { uiActive, changeUiActiveState } = this.props as BaseTriggerPropRequirement
+    const { uiActive, changeUiActiveState } = this.props as AbstractTriggerPropRequirement
 
     return (
       <Provider store={this.store}>

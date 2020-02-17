@@ -6,11 +6,11 @@ export interface MinimalPropRequirement {
   debug?: boolean
 }
 
-export interface BaseControlPropRequirement extends MinimalPropRequirement {
+export interface AbstractControlPropRequirement extends MinimalPropRequirement {
   uiActive: boolean
 }
 
-export interface BaseTriggerPropRequirement extends BaseControlPropRequirement {
+export interface AbstractTriggerPropRequirement extends AbstractControlPropRequirement {
   changeUiActiveState: () => AnyAction
 }
 

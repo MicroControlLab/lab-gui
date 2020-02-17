@@ -1,15 +1,18 @@
 import { AnyAction, Dispatch } from 'redux'
 
 import {
-  BaseControlPropRequirement,
+  AbstractControlPropRequirement,
   BaseUiState,
   GlobalBaseUiState,
   MinimalPropRequirement
-} from './base-interfaces'
-import { BaseView } from './base-views'
+} from './abstract-interfaces'
+import { AbstractView } from './abstract-views'
 
-export class BaseControl extends BaseView {
-  public readonly componentClass: React.ComponentClass<MinimalPropRequirement, any> = BaseControl
+export class AbstractControl extends AbstractView {
+  public readonly componentClass: React.ComponentClass<
+    MinimalPropRequirement,
+    any
+  > = AbstractControl
   public callbacks: Function[] = []
   protected deactivatesUi: boolean = false
 
@@ -22,12 +25,12 @@ export class BaseControl extends BaseView {
     this.callbacks = [...this.callbacks, callback]
   }
 
-  public addDispatcher(name: string, callback: () => AnyAction): void {
+  public addDispatcher(name: string, callback: (self: any) => AnyAction): void {
     this.dispatchers = { ...this.dispatchers, [name]: callback }
   }
 
   protected cleanState() {
-    const cleanedState = { ...this.state } as BaseControlPropRequirement
+    const cleanedState = { ...this.state } as AbstractControlPropRequirement
     delete cleanedState.debug
     delete cleanedState.uiActive
     return cleanedState

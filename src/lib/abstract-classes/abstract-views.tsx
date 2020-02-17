@@ -8,7 +8,7 @@ import {
   DataAction,
   GlobalBaseUiState,
   MinimalPropRequirement
-} from './base-interfaces'
+} from './abstract-interfaces'
 
 const dummyreducer = (state: any = {}, action: any) => state
 
@@ -20,8 +20,8 @@ const initalBaseUiState: BaseUiState = {
   uiActive: false
 }
 
-export class BaseView extends React.Component<MinimalPropRequirement, any> {
-  public readonly componentClass: React.ComponentClass<MinimalPropRequirement, any> = BaseView
+export class AbstractView extends React.Component<MinimalPropRequirement, any> {
+  public readonly componentClass: React.ComponentClass<MinimalPropRequirement, any> = AbstractView
   public readonly name: string = 'pure ReduxComponentBaseClass'
   public readonly debug: boolean = false
   public readonly reducers: { [reducerName: string]: Reducer } = {}

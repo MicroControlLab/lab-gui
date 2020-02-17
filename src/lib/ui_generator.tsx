@@ -2,17 +2,17 @@ import { AnyAction, Reducer, Store, applyMiddleware, combineReducers, createStor
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { logger } from 'redux-logger'
 
-import { BaseView } from './base-classes'
-import { DataAction } from './base-classes/base-interfaces'
+import { AbstractView } from './abstract-classes'
+import { DataAction } from './abstract-classes/abstract-interfaces'
 
 export class UiGenerator {
   private store: Store | null = null
-  private elementList: BaseView[] = []
+  private elementList: AbstractView[] = []
   private elementNameList: string[] = []
   private elementDataActionTypeList: string[] = []
   private reducers: { [reducerName: string]: Reducer } = {}
 
-  public addElement(element: BaseView) {
+  public addElement(element: AbstractView) {
     if (!(this.elementNameList.indexOf(element.name) > -1)) {
       this.elementList = [...this.elementList, element]
       this.elementNameList = [...this.elementNameList, element.name]
@@ -77,7 +77,7 @@ export class UiGenerator {
     const totalDataReducer = (state: any = {}, action: AnyAction) => {
       const dataActionTypeIndex = elementDataActionTypeList.indexOf(action.type)
       if (dataActionTypeIndex > -1) {
-        const dataName = `${elementNameList[dataActionTypeIndex]}_data`
+        const dataName = `${elementNameList[dataActionTypeIndex]}`
         return { ...state, [dataName]: action.data }
       } else {
         return state
