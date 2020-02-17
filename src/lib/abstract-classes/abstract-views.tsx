@@ -13,7 +13,7 @@ import {
 const dummyreducer = (state: any = {}, action: any) => state
 
 interface DispatchObjectState {
-  dispatchObj: { [callbackName: string]: Dispatch }
+  dispatchObj: { [callbackName: string]: (self: any) => Dispatch }
 }
 
 const initalBaseUiState: BaseUiState = {
@@ -102,7 +102,7 @@ export class AbstractView extends React.Component<MinimalPropRequirement, any> {
   }
 
   public getMapDispatchToProps() {
-    let dispatchObj = {}
+    let dispatchObj: DispatchObjectState | {} = {}
     const dispatchers = this.dispatchers
     const totalDispatcher = (dispatch: Dispatch<AnyAction>) => {
       for (const callbackName in dispatchers) {
