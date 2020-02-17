@@ -1,6 +1,6 @@
 import { AbstractView } from '../src/lib/abstract-classes/abstract-view'
 
-describe('testing BaseView', () => {
+describe('testing AbstractView', () => {
   describe('initialisation', () => {
     it('error thrown with none existing element', () => {
       const errorMsg =
@@ -11,7 +11,7 @@ describe('testing BaseView', () => {
       }
       expect(exception).toThrowError(errorMsg)
     })
-    it('error wron type for container', () => {
+    it('error wrong type for container', () => {
       const errorMsg =
         'The container of test_view needs to be a querySelector string or a valid html element. The given value was 9001.'
       const exception = () => {
