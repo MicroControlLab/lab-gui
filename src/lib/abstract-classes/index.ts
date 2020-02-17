@@ -1,6 +1,6 @@
 export { AbstractControl } from './abstract-control'
-export { AbstractTrigger } from './abstract-triggers'
-export { AbstractView } from './abstract-views'
+export { AbstractTrigger } from './abstract-trigger'
+export { AbstractView } from './abstract-view'
 
 export {
   AbstractCallback,

@@ -1,4 +1,4 @@
-import { BaseView } from '../src/lib/base-classes/base-views'
+import { AbstractView } from '../src/lib/abstract-classes/abstract-view'
 
 describe('testing BaseView', () => {
   describe('initialisation', () => {
@@ -7,7 +7,7 @@ describe('testing BaseView', () => {
         'The container selector of test_view needs to match exactly one valid html element. ' +
         'The given value of container is #doesNotExist and matches no element.'
       const exception = () => {
-        const foo = new BaseView({ container: '#doesNotExist', name: 'test_view' })
+        const foo = new AbstractView({ container: '#doesNotExist', name: 'test_view' })
       }
       expect(exception).toThrowError(errorMsg)
     })
@@ -15,7 +15,7 @@ describe('testing BaseView', () => {
       const errorMsg =
         'The container of test_view needs to be a querySelector string or a valid html element. The given value was 9001.'
       const exception = () => {
-        const foo = new BaseView({ container: 9001 as any, name: 'test_view' })
+        const foo = new AbstractView({ container: 9001 as any, name: 'test_view' })
       }
       expect(exception).toThrowError(errorMsg)
     })

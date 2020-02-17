@@ -5,7 +5,7 @@ import {
   AbstractControlPropRequirement,
   MinimalPropRequirement
 } from './abstract-interfaces'
-import { AbstractView } from './abstract-views'
+import { AbstractView } from './abstract-view'
 
 export class AbstractControl extends AbstractView {
   public readonly componentClass: React.ComponentClass<
