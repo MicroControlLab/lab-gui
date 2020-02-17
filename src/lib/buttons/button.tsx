@@ -52,7 +52,7 @@ class ReduxButton extends AbstractTrigger {
 
   public render() {
     this.debugLog('The props at render time are: ', this.props)
-    const { uiActive, changeUiActiveState } = this.props as AbstractTriggerPropRequirement
+    const { uiActive } = this.props as AbstractTriggerPropRequirement
 
     return (
       <Provider store={this.store}>
@@ -78,8 +78,6 @@ class ReduxButton extends AbstractTrigger {
   }
 
   protected clickCallback(self: ReduxButton): void {
-    console.log('self', self)
-    console.log('this', this)
     for (const callback of this.callbacks) {
       callback(self)
     }

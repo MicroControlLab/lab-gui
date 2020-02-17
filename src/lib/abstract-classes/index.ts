@@ -3,6 +3,7 @@ export { AbstractTrigger } from './abstract-triggers'
 export { AbstractView } from './abstract-views'
 
 export {
+  AbstractCallback,
   AbstractControlPropRequirement,
   AbstractTriggerPropRequirement,
   BaseUiState,

@@ -32,7 +32,7 @@ export class AbstractView extends React.Component<MinimalPropRequirement, any> {
   public readonly hasData = true
   public readonly dataActionType: string
   protected containerElement: Element | null = null
-  protected dispatchers: { [callbackName: string]: () => AnyAction } = {}
+  protected dispatchers: { [callbackName: string]: (self: any) => AnyAction } = {}
 
   constructor(props: MinimalPropRequirement) {
     super(props)
@@ -104,11 +104,11 @@ export class AbstractView extends React.Component<MinimalPropRequirement, any> {
   public getMapDispatchToProps() {
     let dispatchObj = {}
     const dispatchers = this.dispatchers
-    const totalDispatcher = (dispatch: Dispatch) => {
+    const totalDispatcher = (dispatch: Dispatch<AnyAction>) => {
       for (const callbackName in dispatchers) {
         if (dispatchers.hasOwnProperty(callbackName)) {
-          const callback: () => AnyAction = dispatchers[callbackName]
-          dispatchObj = { ...dispatchObj, [callbackName]: dispatch(callback()) }
+          const callback: (self: any) => AnyAction = dispatchers[callbackName]
+          dispatchObj = { ...dispatchObj, [callbackName]: (self: any) => dispatch(callback(self)) }
         }
       }
       return dispatchObj

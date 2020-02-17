@@ -4,7 +4,6 @@ import React from 'react'
 
 import { StartBtn, StopBtn } from '../src/lib/buttons'
 import { UiGenerator } from '../src/lib/ui_generator'
-// start.class_names = ["test1", "test2"]
 
 const initialState = {
   uiActive: false

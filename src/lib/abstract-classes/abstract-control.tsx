@@ -1,9 +1,8 @@
 import { AnyAction, Dispatch } from 'redux'
 
 import {
+  AbstractCallback,
   AbstractControlPropRequirement,
-  BaseUiState,
-  GlobalBaseUiState,
   MinimalPropRequirement
 } from './abstract-interfaces'
 import { AbstractView } from './abstract-views'
@@ -13,7 +12,7 @@ export class AbstractControl extends AbstractView {
     MinimalPropRequirement,
     any
   > = AbstractControl
-  public callbacks: Function[] = []
+  public callbacks: AbstractCallback[] = []
   protected deactivatesUi: boolean = false
 
   constructor(props: MinimalPropRequirement) {

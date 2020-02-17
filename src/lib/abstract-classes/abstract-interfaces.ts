@@ -22,6 +22,8 @@ export interface GlobalBaseUiState {
   UiActiveState: BaseUiState
 }
 
+export type AbstractCallback = (self: any) => any
+
 export interface DataAction extends Action {
   data: any
 }
