@@ -14,36 +14,53 @@ export class AbstractControl extends AbstractView {
   > = AbstractControl
   public callbacks: { [eventName: string]: AbstractCallback[] } = {}
   protected deactivatesUi: boolean = false
+  protected defaultState: any
 
   constructor(props: MinimalPropRequirement) {
     super(props)
-    // this.addReducer('UiActiveState', this.uiActiveReducer, true)
+    this.setInitState()
+  }
+
+  public setInitState(): void {
+    this.state = { ...this.defaultState, ...this.props, callbacks: this.callbacks }
   }
 
   public addCallback(eventName: string, callback: (self: any) => any): void {
+    /* tslint:disable-next-line:prefer-conditional-expression */
     if (eventName in this.callbacks) {
       this.callbacks[eventName] = [...this.callbacks[eventName], callback]
     } else {
-      this.callbacks = { ...this.callbacks, [eventName]: [callback] }
+      this.callbacks[eventName] = [callback]
     }
   }
 
-  public addDispatcher(name: string, callback: (self: any) => AnyAction): void {
-    this.dispatchers = { ...this.dispatchers, [name]: callback }
+  public addDispatcher(dispatcherName: string, callback: (self: any) => AnyAction): void {
+    this.dispatchers = { ...this.dispatchers, [dispatcherName]: callback }
   }
 
   protected callCallsbacks(eventName: string, self: any): void {
-    if (eventName in this.callbacks) {
-      for (const callback of this.callbacks[eventName]) {
-        callback(self)
-      }
-    }
+    const controlProps = this.props as AbstractControlPropRequirement
+    this.callbackExecuter(eventName, self, controlProps.callbacks)
+    this.callbackExecuter(eventName, self, this.callbacks)
   }
 
   protected cleanState() {
     const cleanedState = { ...this.state } as AbstractControlPropRequirement
     delete cleanedState.debug
     delete cleanedState.uiActive
+    delete cleanedState.callbacks
     return cleanedState
+  }
+
+  private callbackExecuter(
+    eventName: string,
+    self: any,
+    callbacks: { [eventName: string]: AbstractCallback[] }
+  ): void {
+    if (eventName in callbacks) {
+      for (const callback of callbacks[eventName]) {
+        callback(self)
+      }
+    }
   }
 }

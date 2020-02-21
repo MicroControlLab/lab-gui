@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import {
   AbstractTrigger,
   AbstractTriggerPropRequirement,
+  DefaultControlProps,
   MinimalPropRequirement
 } from '../abstract-classes'
 
@@ -12,9 +13,8 @@ export interface LabUiButtonProps extends MinimalPropRequirement, DefaultButtonP
   name: string
 }
 
-export interface DefaultButtonProps extends ButtonProps {
+export interface DefaultButtonProps extends ButtonProps, DefaultControlProps {
   text?: string
-  class_names?: string | string[]
   inLineStyles?: CSSProperties
 }
 
@@ -23,7 +23,6 @@ class ReduxButton extends AbstractTrigger {
   public state: DefaultButtonProps = {}
   protected defaultState: DefaultButtonProps = {
     className: 'button',
-    class_names: 'button',
     color: 'primary',
     inLineStyles: {
       textTransform: 'none'
@@ -34,16 +33,10 @@ class ReduxButton extends AbstractTrigger {
 
   constructor(props: LabUiButtonProps) {
     super(props)
-    this.setInitState()
   }
 
   public addClickCallback(callback: (self: any) => any): void {
     this.addCallback('click', callback)
-  }
-
-  public setInitState(): void {
-    const cleanedProps = this.props as DefaultButtonProps
-    this.state = { ...this.defaultState, ...cleanedProps }
   }
 
   public changeInlineStyles(styles: CSSProperties): void {
@@ -57,6 +50,7 @@ class ReduxButton extends AbstractTrigger {
   public render() {
     this.debugLog('The props at render time are: ', this.props)
     const { uiActive } = this.props as AbstractTriggerPropRequirement
+    const callbacks = this.callbacks
 
     return (
       <Provider store={this.store}>

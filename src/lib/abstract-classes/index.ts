@@ -7,6 +7,7 @@ export {
   AbstractControlPropRequirement,
   AbstractTriggerPropRequirement,
   BaseUiState,
+  DefaultControlProps,
   GlobalBaseUiState,
   MinimalPropRequirement
 } from './abstract-interfaces'

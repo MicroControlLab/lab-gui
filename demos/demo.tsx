@@ -33,6 +33,11 @@ const stop = new StopBtn({
 })
 stop.changeSettings({ text: 'Bar' })
 stop.changeInlineStyles({ padding: '20px', marginTop: '10px' })
+const dummyCallback = (self: any) => {
+  console.warn('DummyCallback was executed')
+}
+start2.addClickCallback(dummyCallback)
+stop.invertedActiveState = false
 
 Ui.addElement(start1)
 Ui.addElement(start2)
