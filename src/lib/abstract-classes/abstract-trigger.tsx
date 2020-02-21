@@ -18,11 +18,11 @@ export class AbstractTrigger extends AbstractControl {
   public componentDidMount() {
     if (this.deactivatesUi === true) {
       const updatedProps = this.props as AbstractTriggerPropRequirement
-      this.addCallback(updatedProps.changeUiActiveState)
+      this.addCallback('changeUiActiveState', updatedProps.changeUiActiveState)
     }
   }
 
-  protected uiActiveAction = (self: AbstractTrigger): AnyAction => {
+  protected uiActiveAction(self: AbstractTrigger): AnyAction {
     if (self.invertedActiveState) {
       return { type: 'ACTIVATE_UI' }
       return { type: 'REQUEST_STOP_ACTION' }

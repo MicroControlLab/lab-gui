@@ -12,7 +12,7 @@ export class AbstractControl extends AbstractView {
     MinimalPropRequirement,
     any
   > = AbstractControl
-  public callbacks: AbstractCallback[] = []
+  public callbacks: { [eventName: string]: AbstractCallback[] } = {}
   protected deactivatesUi: boolean = false
 
   constructor(props: MinimalPropRequirement) {
@@ -20,12 +20,24 @@ export class AbstractControl extends AbstractView {
     // this.addReducer('UiActiveState', this.uiActiveReducer, true)
   }
 
-  public addCallback(callback: (self: any) => any): void {
-    this.callbacks = [...this.callbacks, callback]
+  public addCallback(eventName: string, callback: (self: any) => any): void {
+    if (eventName in this.callbacks) {
+      this.callbacks[eventName] = [...this.callbacks[eventName], callback]
+    } else {
+      this.callbacks = { ...this.callbacks, [eventName]: [callback] }
+    }
   }
 
   public addDispatcher(name: string, callback: (self: any) => AnyAction): void {
     this.dispatchers = { ...this.dispatchers, [name]: callback }
+  }
+
+  protected callCallsbacks(eventName: string, self: any): void {
+    if (eventName in this.callbacks) {
+      for (const callback of this.callbacks[eventName]) {
+        callback(self)
+      }
+    }
   }
 
   protected cleanState() {

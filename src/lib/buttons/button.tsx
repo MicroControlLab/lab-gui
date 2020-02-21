@@ -37,6 +37,10 @@ class ReduxButton extends AbstractTrigger {
     this.setInitState()
   }
 
+  public addClickCallback(callback: (self: any) => any): void {
+    this.addCallback('click', callback)
+  }
+
   public setInitState(): void {
     const cleanedProps = this.props as DefaultButtonProps
     this.state = { ...this.defaultState, ...cleanedProps }
@@ -78,9 +82,8 @@ class ReduxButton extends AbstractTrigger {
   }
 
   protected clickCallback(self: ReduxButton): void {
-    for (const callback of this.callbacks) {
-      callback(self)
-    }
+    this.callCallsbacks('click', self)
+    this.callCallsbacks('changeUiActiveState', self)
   }
 }
 
