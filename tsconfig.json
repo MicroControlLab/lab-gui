@@ -14,7 +14,7 @@
     /* Module Resolution Options */
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "baseUrl": "./src/",
+    "baseUrl": "./src/lib",
     "paths": {
       "plotly.js": [
         "./node_modules/plotly.js/lib/index.js",
@@ -30,5 +30,5 @@
     "transpileOnly": false
   },
   "include": ["./src/**/*"],
-  "exclude": [".git", "node_modules"]
+  "exclude": [".git", "node_modules", "typings"]
 }

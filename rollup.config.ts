@@ -1,12 +1,14 @@
-import resolve from 'rollup-plugin-node-resolve'
-import commonjs from 'rollup-plugin-commonjs'
-import sourceMaps from 'rollup-plugin-sourcemaps'
-import external from 'rollup-plugin-peer-deps-external'
+/* tslint:disable:object-literal-sort-keys */
+/* tslint:disable:no-implicit-dependencies */
 import camelCase from 'lodash.camelcase'
-import typescript from 'rollup-plugin-typescript2'
+import commonjs from 'rollup-plugin-commonjs'
 import json from 'rollup-plugin-json'
+import resolve from 'rollup-plugin-node-resolve'
+import external from 'rollup-plugin-peer-deps-external'
+import sourceMaps from 'rollup-plugin-sourcemaps'
+import typescript from 'rollup-plugin-typescript2'
 
-const pkg = require('./package.json')
+import pkg from './package.json'
 
 const libraryName = 'lab-gui'
 
@@ -20,12 +22,12 @@ const outGlobals = {
 }
 
 export default {
-  input: `src/${libraryName}.tsx`,
+  input: `src/lib/index.ts`,
   output: [
     {
       file: pkg.main,
       name: camelCase(libraryName),
-      format: 'umd',
+      format: 'cjs',
       sourcemap: true,
       exports: 'named',
       globals: outGlobals
@@ -84,7 +86,7 @@ export default {
           'connectAdvanced',
           'connect'
         ],
-        'node_modules/react-is/index.js': ['isValidElementType']
+        'node_modules/react-is/index.js': ['isValidElementType', 'ForwardRef']
       }
     }),
     // Resolve source maps to the original source

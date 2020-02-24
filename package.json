@@ -7,7 +7,7 @@
     "Ui",
     "typescript"
   ],
-  "main": "dist/lab-gui.umd.js",
+  "main": "dist/lab-gui.js",
   "module": "dist/lab-gui.es5.js",
   "typings": "dist/types/lab-gui.d.ts",
   "files": [
