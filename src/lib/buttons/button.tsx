@@ -22,7 +22,6 @@ class ReduxButton extends AbstractTrigger {
   public readonly componentClass: React.ComponentClass<LabUiButtonProps, any> = ReduxButton
   public state: DefaultButtonProps = {}
   protected defaultState: DefaultButtonProps = {
-    className: 'button',
     color: 'primary',
     inLineStyles: {
       textTransform: 'none'
@@ -33,6 +32,7 @@ class ReduxButton extends AbstractTrigger {
 
   constructor(props: LabUiButtonProps) {
     super(props)
+    this.setInitState()
   }
 
   public addClickCallback(callback: (self: any) => any): void {
@@ -59,7 +59,6 @@ class ReduxButton extends AbstractTrigger {
           variant={this.state.variant}
           color={this.state.color}
           disabled={this.isDisabled(uiActive)}
-          className={this.state.className}
           style={this.state.inLineStyles}
           onClick={() => this.clickCallback(this)}
         >

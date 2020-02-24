@@ -8,7 +8,7 @@ export interface MinimalPropRequirement {
 
 export interface AbstractControlPropRequirement extends MinimalPropRequirement {
   uiActive: boolean
-  callbacks: { [eventName: string]: AbstractCallback[] }
+  callbacks?: { [eventName: string]: AbstractCallback[] }
 }
 
 export interface DefaultControlProps {

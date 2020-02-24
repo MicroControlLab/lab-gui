@@ -18,11 +18,6 @@ export class AbstractControl extends AbstractView {
 
   constructor(props: MinimalPropRequirement) {
     super(props)
-    this.setInitState()
-  }
-
-  public setInitState(): void {
-    this.state = { ...this.defaultState, ...this.props, callbacks: this.callbacks }
   }
 
   public addCallback(eventName: string, callback: (self: any) => any): void {
@@ -38,9 +33,15 @@ export class AbstractControl extends AbstractView {
     this.dispatchers = { ...this.dispatchers, [dispatcherName]: callback }
   }
 
+  protected setInitState(): void {
+    this.state = { ...this.defaultState, ...this.props, callbacks: this.callbacks }
+  }
+
   protected callCallsbacks(eventName: string, self: any): void {
     const controlProps = this.props as AbstractControlPropRequirement
-    this.callbackExecuter(eventName, self, controlProps.callbacks)
+    if (controlProps.callbacks !== undefined) {
+      this.callbackExecuter(eventName, self, controlProps.callbacks)
+    }
     this.callbackExecuter(eventName, self, this.callbacks)
   }
 
@@ -50,6 +51,14 @@ export class AbstractControl extends AbstractView {
     delete cleanedState.uiActive
     delete cleanedState.callbacks
     return cleanedState
+  }
+
+  protected isDisabled(uiActive: boolean): boolean {
+    if ((!this.invertedActiveState && !uiActive) || (this.invertedActiveState && uiActive)) {
+      return true
+    } else {
+      return false
+    }
   }
 
   private callbackExecuter(

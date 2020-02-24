@@ -36,12 +36,4 @@ export class AbstractTrigger extends AbstractControl {
     delete cleanedState.changeUiActiveState
     return cleanedState
   }
-
-  protected isDisabled(uiActive: boolean): boolean {
-    if ((!this.invertedActiveState && !uiActive) || (this.invertedActiveState && uiActive)) {
-      return true
-    } else {
-      return false
-    }
-  }
 }

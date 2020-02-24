@@ -1,0 +1,1 @@
+export { ReduxSwitch } from './switch'

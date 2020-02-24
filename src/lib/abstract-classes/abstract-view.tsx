@@ -36,7 +36,7 @@ export class AbstractView extends React.Component<MinimalPropRequirement, any> {
 
   constructor(props: MinimalPropRequirement) {
     super(props)
-    this.state = { dispatchObj: {} }
+    this.state = {}
     this.name = props.name
     this.dataActionType = this.name.toUpperCase()
     if (props.debug) {
