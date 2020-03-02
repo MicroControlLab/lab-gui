@@ -1,5 +1,6 @@
 /* tslint:disable:object-literal-sort-keys */
 /* tslint:disable:no-implicit-dependencies */
+/* tslint:disable:object-literal-key-quotes */
 import camelCase from 'lodash.camelcase'
 import commonjs from 'rollup-plugin-commonjs'
 import json from 'rollup-plugin-json'
