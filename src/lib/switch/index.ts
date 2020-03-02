@@ -1,1 +1,1 @@
-export { ReduxSwitch } from './switch'
+export { TriggerSwitch } from './switch'

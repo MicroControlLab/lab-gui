@@ -94,3 +94,5 @@ export class ReduxSwitch extends AbstractTrigger {
     return stateCopy
   }
 }
+
+export class TriggerSwitch extends ReduxSwitch {}
