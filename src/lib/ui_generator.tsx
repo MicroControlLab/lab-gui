@@ -1,6 +1,6 @@
 import { AnyAction, Reducer, Store, applyMiddleware, combineReducers, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { logger } from 'redux-logger'
+import logger from 'redux-logger'
 
 import { AbstractView } from './abstract-classes'
 import { DataAction } from './abstract-classes/abstract-interfaces'
