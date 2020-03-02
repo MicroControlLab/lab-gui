@@ -16,12 +16,12 @@
   "author": "Sebastian Weigand <s.weigand.phy@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MicroControlLab/lab-gui"
+    "url": "https://github.com/MicroControlLab/lab-gui.git"
   },
   "bugs": {
-    "url": "https://github.com/MicroControlLab/lab-gui-websocket.git/issues"
+    "url": "https://github.com/MicroControlLab/lab-gui/issues"
   },
-  "homepage": "https://github.com/MicroControlLab/lab-gui-websocket.git",
+  "homepage": "https://github.com/MicroControlLab/lab-gui",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=10.0.0"
