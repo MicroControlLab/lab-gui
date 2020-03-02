@@ -23,7 +23,7 @@ const outGlobals = {
 }
 
 export default {
-  input: `src/lib/index.ts`,
+  input: `src/index.ts`,
   output: [
     {
       file: pkg.main,
@@ -55,7 +55,7 @@ export default {
     // Allow json resolution
     json(),
     // Compile TypeScript files
-    typescript({ useTsconfigDeclarationDir: true }),
+    typescript({ tsconfig: 'tsconfig.json' }),
     // Allow node_modules resolution, so you can use 'external' to control
     // which external modules to include in the bundle
     // https://github.com/rollup/rollup-plugin-node-resolve#usage
