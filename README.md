@@ -1,5 +1,5 @@
 [![npm latest version](https://img.shields.io/npm/v/lab-gui.svg)](https://www.npmjs.com/package/lab-gui)
-[![Build Status](https://travis-ci.org/MicroControlLab/lab-gui.svg?branch=master)](https://travis-ci.org/MicroControlLab/lab-gui)
+[![Test Status](https://github.com/MicroControlLab/lab-gui/workflows/Tests/badge.svg)](https://github.com/MicroControlLab/lab-gui/actions)
 [![Coverage Status](https://coveralls.io/repos/github/MicroControlLab/lab-gui/badge.svg?branch=master)](https://coveralls.io/github/MicroControlLab/lab-gui?branch=master)
 [![Apache 2.0 licensed](https://img.shields.io/hexpm/l/plug.svg)](https://raw.githubusercontent.com/MicroControlLab/lab-gui/master/LICENSE)
 [![dependencies Status](https://david-dm.org/MicroControlLab/lab-gui/status.svg)](https://david-dm.org/MicroControlLab/lab-gui)
