@@ -19,8 +19,6 @@ jobs:
         run: npm run build
       - name: Running tests
         run: npm run test:prod
-      - name: Test if build passes
-        run: npm run build
       - name: Codecov Upload
         continue-on-error: true
         uses: codecov/codecov-action@v1
