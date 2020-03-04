@@ -45,7 +45,13 @@ export default {
     'react-redux',
     'react-intl',
     'message-common',
-    'bootstrap-styled-motion'
+    'bootstrap-styled-motion',
+    'redux-devtools-extension',
+    'redux-logger',
+    'plotly.js',
+    'react-plotly.js',
+    '@material-ui/core',
+    '@material-ui/icons'
   ],
   watch: {
     include: 'src/**'
@@ -87,6 +93,7 @@ export default {
           'connectAdvanced',
           'connect'
         ],
+        'node_modules/redux/dist/redux.js': ['compose'],
         'node_modules/react-is/index.js': ['isValidElementType', 'ForwardRef']
       }
     }),
