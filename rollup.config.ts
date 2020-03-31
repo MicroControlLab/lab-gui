@@ -19,7 +19,7 @@ const outGlobals = {
   classnames: 'classnames',
   redux: 'redux',
   'react-redux': 'reactRedux',
-  'prop-types': 'propTypes'
+  'prop-types': 'propTypes',
 }
 
 export default {
@@ -31,9 +31,9 @@ export default {
       format: 'cjs',
       sourcemap: true,
       exports: 'named',
-      globals: outGlobals
+      globals: outGlobals,
     },
-    { file: pkg.module, format: 'es', sourcemap: true, exports: 'named', globals: outGlobals }
+    { file: pkg.module, format: 'es', sourcemap: true, exports: 'named', globals: outGlobals },
   ],
   // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
   external: [
@@ -51,10 +51,10 @@ export default {
     'plotly.js',
     'react-plotly.js',
     '@material-ui/core',
-    '@material-ui/icons'
+    '@material-ui/icons',
   ],
   watch: {
-    include: 'src/**'
+    include: 'src/**',
   },
   plugins: [
     external(),
@@ -84,20 +84,20 @@ export default {
           'createRef',
           'createContext',
           'isValidElement',
-          'isValidElementType'
+          'isValidElementType',
         ],
         'node_modules/react-dom/index.js': ['render', 'hydrate'],
         'node_modules/react-redux/dist/react-redux.js': [
           'Provider',
           'createProvider',
           'connectAdvanced',
-          'connect'
+          'connect',
         ],
         'node_modules/redux/dist/redux.js': ['compose'],
-        'node_modules/react-is/index.js': ['isValidElementType', 'ForwardRef']
-      }
+        'node_modules/react-is/index.js': ['isValidElementType', 'ForwardRef', 'Memo'],
+      },
     }),
     // Resolve source maps to the original source
-    sourceMaps()
-  ]
+    sourceMaps(),
+  ],
 }
