@@ -9,5 +9,5 @@ export {
   BaseUiState,
   DefaultControlProps,
   GlobalBaseUiState,
-  MinimalPropRequirement
+  MinimalPropRequirement,
 } from './abstract-interfaces'

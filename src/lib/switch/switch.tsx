@@ -6,7 +6,7 @@ import {
   AbstractTrigger,
   AbstractTriggerPropRequirement,
   DefaultControlProps,
-  MinimalPropRequirement
+  MinimalPropRequirement,
 } from '../abstract-classes'
 
 export interface LabUiSwitchProps extends MinimalPropRequirement, DefaultSwitchProps {
@@ -26,9 +26,9 @@ export class ReduxSwitch extends AbstractTrigger {
     checked: false,
     color: 'secondary',
     inLineStyles: {
-      textTransform: 'none'
+      textTransform: 'none',
     },
-    text: 'button text'
+    text: 'button text',
   }
 
   constructor(props: LabUiSwitchProps) {
@@ -71,6 +71,7 @@ export class ReduxSwitch extends AbstractTrigger {
     this.debugLog('The props at render time are: ', this.props)
     const { uiActive } = this.props as AbstractTriggerPropRequirement
     const callbacks = this.callbacks
+    // {this.state.text}
 
     return (
       <Provider store={this.store}>
@@ -81,9 +82,7 @@ export class ReduxSwitch extends AbstractTrigger {
           disabled={this.isDisabled(uiActive)}
           style={this.state.inLineStyles}
           onChange={this.onChangeCallback(this)}
-        >
-          {this.state.text}
-        </Switch>
+        />
       </Provider>
     )
   }

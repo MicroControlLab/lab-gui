@@ -6,7 +6,7 @@ import {
   AbstractTrigger,
   AbstractTriggerPropRequirement,
   DefaultControlProps,
-  MinimalPropRequirement
+  MinimalPropRequirement,
 } from '../abstract-classes'
 
 export interface LabUiButtonProps extends MinimalPropRequirement, DefaultButtonProps {
@@ -24,10 +24,10 @@ class ReduxButton extends AbstractTrigger {
   protected defaultState: DefaultButtonProps = {
     color: 'primary',
     inLineStyles: {
-      textTransform: 'none'
+      textTransform: 'none',
     },
     text: 'button text',
-    variant: 'contained'
+    variant: 'contained',
   }
 
   constructor(props: LabUiButtonProps) {

@@ -3,7 +3,15 @@
   "rules": {
     // override tslint-react rules here
     "jsx-wrap-multiline": false,
-    "trailing-comma": [true, { "multiline": "never", "singleline": "never" }],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": {
+          "objects": "always"
+        },
+        "singleline": "never"
+      }
+    ],
     "semicolon": [true, "never"],
     "quotemark": [true, "single", "jsx-single", "avoid-escape"],
     "variable-name": [true, "check-format", "allow-pascal-case"],
