@@ -3,7 +3,7 @@ import { AnyAction, Dispatch } from 'redux'
 import {
   AbstractCallback,
   AbstractControlPropRequirement,
-  MinimalPropRequirement
+  MinimalPropRequirement,
 } from './abstract-interfaces'
 import { AbstractView } from './abstract-view'
 

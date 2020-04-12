@@ -7,7 +7,7 @@ import {
   BaseUiState,
   DataAction,
   GlobalBaseUiState,
-  MinimalPropRequirement
+  MinimalPropRequirement,
 } from './abstract-interfaces'
 
 const dummyreducer = (state: any = {}, action: any) => state
@@ -17,7 +17,7 @@ interface DispatchObjectState {
 }
 
 const initalBaseUiState: BaseUiState = {
-  uiActive: false
+  uiActive: false,
 }
 
 export class AbstractView extends React.Component<MinimalPropRequirement, any> {
@@ -145,7 +145,7 @@ export class AbstractView extends React.Component<MinimalPropRequirement, any> {
   public setData(data: any): void {
     this.store.dispatch({
       data,
-      type: this.dataActionType
+      type: this.dataActionType,
     })
   }
 
