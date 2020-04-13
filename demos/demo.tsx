@@ -3,12 +3,12 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import React from 'react'
 
 import { StartBtn, StopBtn } from '../src/lib/buttons'
-import { ReduxSwitch } from '../src/lib/switch'
+import { TriggerSwitch } from '../src/lib/switch'
 import { UiGenerator } from '../src/lib/ui_generator'
 import { blue } from '@material-ui/core/colors'
 
 const initialState = {
-  uiActive: false
+  uiActive: false,
 }
 
 const testContainer2 = document.querySelector('.test-container2')
@@ -28,7 +28,7 @@ const start2 = new StartBtn({
   container: testContainer2,
   // debug: true,
   name: 'start2',
-  text: 'FOOOOOOO'
+  text: 'FOOOOOOO',
 })
 start2.changeSettings({ text: 'start 2', startIcon: <CloudUploadIcon /> })
 start2.addClickCallback(dummyCallback)
@@ -39,17 +39,17 @@ start3.changeSettings({ text: 'start 3', endIcon: <DeleteIcon /> })
 const stop = new StopBtn({
   container: testContainer4,
   name: 'stop',
-  text: 'foo'
+  text: 'foo',
 })
 stop.changeSettings({ text: 'Bar' })
 stop.changeInlineStyles({ padding: '20px', marginTop: '10px' })
 stop.invertedActiveState = false
 
-const switch1 = new ReduxSwitch({
+const switch1 = new TriggerSwitch({
   container: testContainer5,
   debug: true,
-  // inLineStyles: { backgroundColor: 'blue' },
-  name: 'switch1'
+  inLineStyles: { color: 'blue' },
+  name: 'switch1',
 })
 
 Ui.addElement(start1)
