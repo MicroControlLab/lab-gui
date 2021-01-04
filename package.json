@@ -29,7 +29,7 @@
   "scripts": {
     "lint": "tslint -t codeFrame -c tslint.json 'src/**/*.{ts,tsx,js}' 'tests/**/*.{ts,tsx,js}'",
     "prebuild": "rimraf dist && rimraf build",
-    "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
+    "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --theme minimal src",
     "start": "rollup -c rollup.config.ts -w",
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",
