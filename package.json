@@ -82,7 +82,7 @@
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
-    "@types/jest": "^26.0.0",
+    "@types/jest": "^27.0.2",
     "@types/node": "^12.12.22",
     "@types/parcel-env": "0.0.1",
     "@types/plotly.js": "^1.38.12",
