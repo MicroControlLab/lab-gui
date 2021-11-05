@@ -83,7 +83,7 @@
     "@commitlint/cli": "^14.1.0",
     "@commitlint/config-conventional": "^14.1.0",
     "@types/jest": "^27.0.2",
-    "@types/node": "^12.12.22",
+    "@types/node": "^16.11.6",
     "@types/parcel-env": "0.0.1",
     "@types/plotly.js": "^1.38.12",
     "@types/react": "^17.0.0",
