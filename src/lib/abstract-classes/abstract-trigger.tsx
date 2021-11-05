@@ -33,6 +33,7 @@ export class AbstractTrigger extends AbstractControl {
 
   protected cleanState() {
     const cleanedState = super.cleanState() as AbstractTriggerPropRequirement
+    // @ts-ignore
     delete cleanedState.changeUiActiveState
     return cleanedState
   }

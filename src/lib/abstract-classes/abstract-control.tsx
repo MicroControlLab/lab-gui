@@ -48,6 +48,7 @@ export class AbstractControl extends AbstractView {
   protected cleanState() {
     const cleanedState = { ...this.state } as AbstractControlPropRequirement
     delete cleanedState.debug
+    // @ts-ignore
     delete cleanedState.uiActive
     delete cleanedState.callbacks
     return cleanedState
