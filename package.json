@@ -29,7 +29,7 @@
   "scripts": {
     "lint": "tslint -t codeFrame -c tslint.json 'src/**/*.{ts,tsx,js}' 'tests/**/*.{ts,tsx,js}'",
     "prebuild": "rimraf dist && rimraf build",
-    "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --theme minimal src",
+    "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs src",
     "start": "rollup -c rollup.config.ts -w",
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",
@@ -121,7 +121,7 @@
     "tslint-config-prettier": "^1.15.0",
     "tslint-config-standard": "^9.0.0",
     "tslint-react": "^5.0.0",
-    "typedoc": "^0.20.10",
+    "typedoc": "^0.22.7",
     "typescript": "^4.4.4"
   },
   "dependencies": {
