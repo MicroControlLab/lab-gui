@@ -6,3 +6,8 @@ updates:
       interval: monthly
     reviewers:
       - s-weigand
+    ignore:
+      - dependency-name: '@types/node'
+        versions:
+          - '>= 14'
+          - '< 15'
